@@ -9,9 +9,9 @@ interface PhoneFrameProps {
 
 export const PhoneFrame: React.FC<PhoneFrameProps> = ({ children }) => {
   return (
-    <div className="relative mx-auto my-auto max-w-[400px] w-full flex flex-col items-center">
-      {/* iOS iPhone 16 Pro Titanium Chassis */}
-      <div className="relative w-full h-[780px] max-h-[calc(100vh-100px)] bg-[#0C120E] rounded-[52px] p-2.5 shadow-2xl border-[5px] border-[#25382D] ring-1 ring-white/10 flex flex-col overflow-hidden backdrop-blur-2xl">
+    <div className="relative mx-auto my-auto max-w-[420px] w-full flex flex-col items-center justify-center">
+      {/* iOS iPhone 16 Pro Max Large Titanium Chassis */}
+      <div className="relative w-full h-[840px] max-h-[calc(100vh-80px)] bg-[#0C120E] rounded-[52px] p-2.5 shadow-2xl border-[5px] border-[#25382D] ring-1 ring-white/10 flex flex-col overflow-hidden backdrop-blur-2xl">
         
         {/* Hardware Buttons */}
         <div className="absolute -left-[8px] top-28 w-[3px] h-9 bg-slate-700 rounded-l-md" />

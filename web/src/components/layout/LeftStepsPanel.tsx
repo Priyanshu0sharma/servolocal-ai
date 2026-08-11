@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { usePrototype } from '../../context/PrototypeContext';
-import { PITCH_DECK_STEPS } from '../../data/mockData';
+import { PITCH_DECK_STEPS, TECH_WORKFLOW_STEPS } from '../../data/mockData';
 import { CoreStepId } from '../../types/prototype';
 import {
   UploadCloud,
@@ -12,8 +12,11 @@ import {
   Wrench,
   CheckCircle2,
   User,
-  ShieldCheck,
-  Zap,
+  Bell,
+  Navigation,
+  FileText,
+  Camera,
+  IndianRupee
 } from 'lucide-react';
 
 const ICON_MAP: Record<string, React.ElementType> = {
@@ -23,10 +26,17 @@ const ICON_MAP: Record<string, React.ElementType> = {
   Radio,
   Wrench,
   CheckCircle2,
+  Bell,
+  Navigation,
+  FileText,
+  Camera,
+  IndianRupee
 };
 
 export const LeftStepsPanel: React.FC = () => {
   const { currentStep, setCurrentStep, activeRole, setActiveRole } = usePrototype();
+
+  const stepsList = activeRole === 'technician' ? TECH_WORKFLOW_STEPS : PITCH_DECK_STEPS;
 
   return (
     <aside className="hidden lg:flex w-72 bg-[#F5EEE6] border-r border-[#1B4332]/15 flex-col shrink-0 overflow-hidden">
@@ -34,14 +44,14 @@ export const LeftStepsPanel: React.FC = () => {
       <div className="p-4 border-b border-[#1B4332]/15 bg-[#FFF8F1]">
         <div className="flex items-center justify-between">
           <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#7B4B2A] bg-[#F4EAE2] px-2 py-0.5 rounded-full">
-            {activeRole === 'technician' ? 'TECHNICIAN FLOW' : 'SERVOLOCAL AI WORKFLOW'}
+            {activeRole === 'technician' ? 'TECHNICIAN PROTOCOL' : 'SERVOLOCAL AI WORKFLOW'}
           </span>
           <span className="text-xs font-mono font-bold text-[#1B4332]">
-            {currentStep}/06
+            {currentStep || 1}/06
           </span>
         </div>
         <h2 className="text-sm font-extrabold text-[#1B4332] mt-1 uppercase tracking-wide">
-          {activeRole === 'technician' ? 'Technician Dispatch' : '6 Core Workflow Steps'}
+          {activeRole === 'technician' ? 'Technician Dispatch Steps' : '6 Core Workflow Steps'}
         </h2>
       </div>
 
@@ -82,9 +92,9 @@ export const LeftStepsPanel: React.FC = () => {
         </div>
       </div>
 
-      {/* 6 Core Workflow Steps */}
+      {/* 6 Core Workflow Steps (Updates dynamically for Tech vs User) */}
       <div className="flex-1 overflow-y-auto p-3 space-y-2">
-        {PITCH_DECK_STEPS.map((step) => {
+        {stepsList.map((step) => {
           const IconComp = ICON_MAP[step.icon] || UploadCloud;
           const isActive = currentStep === step.id;
           const isPassed = currentStep > step.id;
@@ -137,10 +147,6 @@ export const LeftStepsPanel: React.FC = () => {
                   isActive ? 'text-amber-300' : isPassed ? 'text-[#2D5A43]' : 'text-[#4C6B5D]'
                 }`}
               />
-
-              {isActive && (
-                <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-1.5 h-8 bg-amber-500 rounded-r-full shadow" />
-              )}
             </button>
           );
         })}
