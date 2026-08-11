@@ -122,3 +122,66 @@ export const SAMPLE_FAILURE_ASSETS = [
     size: '1.9 MB',
   },
 ];
+
+export const APPLIANCE_CATEGORIES = [
+  { id: 'ac', name: 'Air Conditioner & HVAC', icon: 'Wind', desc: 'Split, Window, VRV & Central HVAC' },
+  { id: 'refrigerator', name: 'Refrigerator & Deep Freezer', icon: 'Snowflake', desc: 'Single/Double Door, Commercial Freezer' },
+  { id: 'washing_machine', name: 'Washing Machine & Dryer', icon: 'RotateCw', desc: 'Front & Top Load Automatic' },
+  { id: 'chiller', name: 'Industrial Chiller & HVAC', icon: 'ThermometerSnow', desc: 'Heavy Plant Cooling & Compressors' },
+  { id: 'motor_pump', name: 'Motors, Pumps & Generators', icon: 'Zap', desc: 'Induction Motors, Water Pumps, DG Sets' },
+  { id: 'kitchen', name: 'Microwave & Kitchen Equipment', icon: 'Flame', desc: 'Ovens, Chimneys, Induction Tops' },
+  { id: 'ro_purifier', name: 'Water Purifier & RO System', icon: 'Droplets', desc: 'RO, UV, Alkaline Water Filters' },
+  { id: 'elevator', name: 'Elevator & Lift Controls', icon: 'ArrowUpUp', desc: 'VFD Panels, Motors & Safety Relays' },
+];
+
+export const MOCK_PAYMENT_RECORDS = [
+  {
+    id: 'PAY-9041',
+    jobId: 'JOB-8801',
+    customerName: 'Aarav Sharma',
+    machineCategory: 'Air Conditioner & HVAC',
+    totalAmount: 1850.00,
+    techPayout: 1550.00,
+    platformFee: 300.00,
+    status: 'PAID' as const,
+    paymentMethod: 'UPI' as const,
+    date: '2026-08-10 14:30',
+  },
+  {
+    id: 'PAY-9038',
+    jobId: 'JOB-8794',
+    customerName: 'Sunita Patel',
+    machineCategory: 'Washing Machine',
+    totalAmount: 1200.00,
+    techPayout: 1000.00,
+    platformFee: 200.00,
+    status: 'PAID' as const,
+    paymentMethod: 'Direct Bank Transfer' as const,
+    date: '2026-08-09 11:15',
+  },
+  {
+    id: 'PAY-9022',
+    jobId: 'JOB-8760',
+    customerName: 'Zenith Logistics Ltd.',
+    machineCategory: 'Industrial Chiller',
+    totalAmount: 6400.00,
+    techPayout: 5400.00,
+    platformFee: 1000.00,
+    status: 'PAID' as const,
+    paymentMethod: 'UPI' as const,
+    date: '2026-08-07 16:45',
+  },
+  {
+    id: 'PAY-9015',
+    jobId: 'JOB-8742',
+    customerName: 'Priya Verma',
+    machineCategory: 'Refrigerator',
+    totalAmount: 950.00,
+    techPayout: 800.00,
+    platformFee: 150.00,
+    status: 'PROCESSING' as const,
+    paymentMethod: 'UPI' as const,
+    date: '2026-08-11 09:20',
+  },
+];
+

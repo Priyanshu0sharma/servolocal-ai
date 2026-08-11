@@ -123,16 +123,23 @@ export const Step1IssueUploadScreen: React.FC = () => {
 
         {/* Service Category */}
         <div>
-          <label className="block text-[11px] font-bold text-[#1C2520] mb-1">Category</label>
+          <label className="block text-[11px] font-bold text-[#1C2520] mb-1">Appliance / Machine Category</label>
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}
             className="w-full px-3 py-2 rounded-xl border border-[#1B4332]/20 text-xs bg-white text-[#1C2520] font-medium"
           >
             <option>Commercial HVAC & AC</option>
+            <option>Air Conditioner (Split / Window)</option>
+            <option>Refrigerator & Deep Freezer</option>
+            <option>Washing Machine & Dryer</option>
+            <option>Industrial Chiller & Cooling</option>
+            <option>Motors, Pumps & Generators</option>
+            <option>Kitchen Appliances & Microwave</option>
+            <option>Water Purifier & RO System</option>
+            <option>Elevator & Lift Controls</option>
             <option>Industrial Machinery & CNC</option>
             <option>Power & Solar Inverters</option>
-            <option>Cold Storage & Freezers</option>
           </select>
         </div>
 

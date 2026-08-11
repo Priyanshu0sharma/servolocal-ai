@@ -105,6 +105,29 @@ export interface ServoLocalJob {
   };
 }
 
+export interface PaymentRecord {
+  id: string;
+  jobId: string;
+  customerName: string;
+  machineCategory: string;
+  totalAmount: number;
+  techPayout: number;
+  platformFee: number;
+  status: 'PAID' | 'PROCESSING' | 'PENDING';
+  paymentMethod: 'UPI' | 'Direct Bank Transfer' | 'Card';
+  date: string;
+}
+
+export interface TechnicianEarningsSummary {
+  todayEarnings: number;
+  weeklyEarnings: number;
+  monthlyEarnings: number;
+  pendingPayouts: number;
+  completedJobsCount: number;
+  averageRating: number;
+  paymentHistory: PaymentRecord[];
+}
+
 export interface RealtimeSyncMessage {
   type:
     | 'JOB_CREATED'
@@ -118,3 +141,4 @@ export interface RealtimeSyncMessage {
   payload?: any;
   timestamp: number;
 }
+
