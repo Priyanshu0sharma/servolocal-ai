@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { PrototypeProvider, usePrototype } from '../context/PrototypeContext';
 import { RoleSwitcherHeader } from '../components/layout/RoleSwitcherHeader';
 import { LeftStepsPanel } from '../components/layout/LeftStepsPanel';
@@ -8,6 +8,7 @@ import { PhoneFrame } from '../components/layout/PhoneFrame';
 import { RightContextPanel } from '../components/layout/RightContextPanel';
 import { RealtimeNotification } from '../components/common/RealtimeNotification';
 
+import { LandingPortalScreen } from '../components/steps/LandingPortalScreen';
 import { Step1IssueUploadScreen } from '../components/steps/Step1IssueUploadScreen';
 import { Step2AIDiagnosisScreen } from '../components/steps/Step2AIDiagnosisScreen';
 import { Step3CostEstimationScreen } from '../components/steps/Step3CostEstimationScreen';
@@ -22,6 +23,8 @@ function MainPresentationShell() {
 
   const renderActivePhoneScreen = () => {
     switch (currentStep) {
+      case 0:
+        return <LandingPortalScreen />;
       case 1:
         return <Step1IssueUploadScreen />;
       case 2:
@@ -35,7 +38,7 @@ function MainPresentationShell() {
       case 6:
         return <Step6CompletionFeedbackScreen />;
       default:
-        return <Step1IssueUploadScreen />;
+        return <LandingPortalScreen />;
     }
   };
 
@@ -47,7 +50,7 @@ function MainPresentationShell() {
       {/* Realtime Toast Notifications */}
       <RealtimeNotification />
 
-      {/* 3-Column Hackathon Pitch Deck Presentation Layout */}
+      {/* 3-Column Pitch Deck Presentation Layout */}
       <div className="flex-1 flex overflow-hidden">
         {/* LEFT: 6 Core Steps & Role Controller */}
         <LeftStepsPanel />
