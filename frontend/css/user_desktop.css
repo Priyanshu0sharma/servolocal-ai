@@ -1,0 +1,395 @@
+/* ==========================================================================
+   AETHERION - User Desktop Portal Styles
+   Theme: Nature Inspired • Trust • Reliability • Simplicity
+   Palette:
+   - Dark Green: #1B4332
+   - Brown: #7B4B2A
+   - Creme: #F5EEE6
+   - Light Cream: #FFF8F1
+   - Muted Green: #4C6B5D
+   - Soft Beige: #FBF6EF
+   ========================================================================== */
+
+.user-desktop-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-soft-beige);
+}
+
+/* Navbar */
+.desktop-navbar {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--border-light);
+  padding: 14px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.nav-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.brand-badge-pill {
+  background-color: var(--bg-creme);
+  color: var(--accent-brown);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+}
+
+.nav-center-links {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.nav-link-item {
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: color 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-link-item:hover,
+.nav-link-item.active {
+  color: var(--primary-dark-green);
+}
+
+.nav-user-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.location-selector {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--bg-soft-beige);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--primary-dark-green);
+  border: 1px solid var(--border-light);
+}
+
+/* Main Container */
+.desktop-container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* Hero Section with 2 Columns */
+.hero-portal-grid {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* Left Hero: Report Problem & AI Diagnosis Card */
+.ai-diagnosis-hero-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+.hero-header-title {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--primary-dark-green);
+  line-height: 1.25;
+  margin-bottom: 6px;
+}
+.hero-header-sub {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+}
+
+.desktop-input-group {
+  margin-bottom: 16px;
+}
+.desktop-input-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary-dark-green);
+  margin-bottom: 6px;
+}
+.desktop-textarea {
+  width: 100%;
+  border: 1.5px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 14px;
+  outline: none;
+  background-color: var(--bg-soft-beige);
+  color: var(--text-primary);
+  resize: vertical;
+  transition: border-color 0.2s ease;
+}
+.desktop-textarea:focus {
+  border-color: var(--primary-dark-green);
+  background-color: #FFFFFF;
+}
+
+.upload-dropzone {
+  border: 2px dashed var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  text-align: center;
+  background-color: var(--bg-light-cream);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.upload-dropzone:hover {
+  border-color: var(--accent-brown);
+  background-color: var(--bg-creme);
+}
+
+/* AI Result Box on Desktop */
+.ai-desktop-result-panel {
+  background: var(--bg-light-cream);
+  border: 1px solid rgba(123, 75, 42, 0.2);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  margin-top: 18px;
+  display: none;
+}
+.ai-detected-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.ai-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+/* Right Hero: Active Service Live Radar */
+.active-service-desktop-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+
+.live-map-desktop-frame {
+  height: 220px;
+  background: #E8ECE9;
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+  margin: 16px 0;
+  border: 1px solid var(--border-light);
+}
+
+/* Category Grid */
+.categories-desktop-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+.category-desktop-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  padding: 20px 14px;
+  text-align: center;
+  border: 1px solid var(--border-light);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.category-desktop-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-brown);
+}
+.category-icon-large {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+.category-name-desktop {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary-dark-green);
+  margin-bottom: 4px;
+}
+.category-price-desktop {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Technicians Section */
+.technicians-desktop-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.tech-card-desktop {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* How It Works Section */
+.how-it-works-section {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+.flow-diagram-banner {
+  background: linear-gradient(135deg, var(--primary-dark-green), #0D2318);
+  border-radius: var(--radius-md);
+  padding: 22px 26px;
+  color: #FFFFFF;
+  margin-bottom: 24px;
+  box-shadow: 0 8px 24px rgba(27, 67, 50, 0.2);
+}
+.flow-diagram-pills {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+.flow-pill-item {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 14px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(4px);
+}
+.flow-arrow-sep {
+  color: #E0A96D;
+  font-weight: 900;
+  font-size: 14px;
+}
+.usp-quote-box {
+  background: #FFF9F2;
+  border: 1.5px solid rgba(123, 75, 42, 0.35);
+  border-radius: var(--radius-md);
+  padding: 22px 26px;
+  margin-bottom: 28px;
+  position: relative;
+}
+.usp-badge-tag {
+  display: inline-block;
+  background: var(--accent-brown);
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 6px;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.usp-quote-text {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary-dark-green);
+  font-style: italic;
+  line-height: 1.6;
+}
+.steps-8-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.step-8-card {
+  background: var(--bg-soft-beige);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.step-8-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-brown);
+}
+.step-8-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.step-8-num {
+  width: 36px;
+  height: 36px;
+  background: var(--primary-dark-green);
+  color: #FFFFFF;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 16px;
+}
+.step-8-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--primary-dark-green);
+  line-height: 1.3;
+}
+.step-8-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  flex: 1;
+}
+
+@media (max-width: 1024px) {
+  .hero-portal-grid {
+    grid-template-columns: 1fr;
+  }
+  .categories-desktop-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .technicians-desktop-grid {
+    grid-template-columns: 1fr;
+  }
+  .steps-8-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .steps-8-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AETHERION - Customer Mobile App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/mobile.css">
+</head>
+<body class="standalone-mobile">
+
+  <div class="mobile-wrapper">
+    <div class="mobile-frame">
+      
+      <!-- Top Smartphone Status Bar -->
+      <div class="status-bar">
+        <span id="current-clock-time">9:41</span>
+        <div class="icons">
+          <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M12 3C7.5 3 3.7 4.8 1 7.8L12 21 23 7.8C20.3 4.8 16.5 3 12 3z"/></svg>
+          <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.33C7 21.4 7.6 22 8.33 22h7.33c.74 0 1.34-.6 1.34-1.33V5.33C17 4.6 16.4 4 15.67 4z"/></svg>
+        </div>
+      </div>
+
+      <!-- Main Viewport containing all Screen Views -->
+      <div class="screens-viewport" id="screens-viewport">
+
+        <!-- =================================================================
+             1. SPLASH SCREEN
+             ================================================================= -->
+        <section id="view-splash" class="screen-section active">
+          <div class="splash-container">
+            <div class="splash-logo-box">⬡</div>
+            <h1 class="splash-title">AETHERION</h1>
+            <p class="splash-subtitle">Smart On-Demand Repair &amp; Local Technician Ecosystem</p>
+            <div class="splash-loader"></div>
+            <span style="font-size: 11px; color: rgba(255,255,255,0.5); margin-top: 24px;">v2.4 Prototype</span>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             2. ONBOARDING CAROUSEL (3 Slides)
+             ================================================================= -->
+        <section id="view-onboarding" class="screen-section">
+          <div class="onboarding-container">
+            <div style="display: flex; justify-content: flex-end;">
+              <button class="btn-text" id="btn-skip-onboarding" style="background: none; border: none; font-size: 13px; font-weight: 700; color: var(--text-muted); cursor: pointer;">Skip</button>
+            </div>
+
+            <!-- Slide 1 -->
+            <div class="onboarding-slide active" id="slide-1">
+              <div class="onboarding-illustration">📷</div>
+              <h2 class="onboarding-title">Report Any Problem</h2>
+              <p class="onboarding-desc">Upload a photo or video of your faulty appliance for instant automated detection.</p>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="onboarding-slide" id="slide-2">
+              <div class="onboarding-illustration">🧠</div>
+              <h2 class="onboarding-title">AI-Powered Diagnosis</h2>
+              <p class="onboarding-desc">Get root causes, required spare parts and upfront transparent cost estimates in seconds.</p>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="onboarding-slide" id="slide-3">
+              <div class="onboarding-illustration">👨‍🔧</div>
+              <h2 class="onboarding-title">Verified Technicians</h2>
+              <p class="onboarding-desc">Connect with nearby rated technicians, live GPS tracking and digital handover proof.</p>
+            </div>
+
+            <div class="onboarding-footer">
+              <div class="onboarding-dots">
+                <div class="dot active" id="dot-1"></div>
+                <div class="dot" id="dot-2"></div>
+                <div class="dot" id="dot-3"></div>
+              </div>
+              <button class="btn-primary" id="btn-next-onboarding">
+                <span>Continue →</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             3. LOGIN / SIGN UP (Phone & OTP)
+             ================================================================= -->
+        <section id="view-auth" class="screen-section">
+          <div class="auth-container">
+            <div>
+              <div class="view-topbar" style="padding: 0 0 16px;">
+                <span class="hub-badge">LOGIN / SIGN UP</span>
+              </div>
+              <h2 class="auth-title">Welcome to Aetherion</h2>
+              <p class="auth-subtitle">Enter your mobile number to get an instant OTP</p>
+
+              <!-- Step A: Mobile Input -->
+              <div id="auth-phone-step" style="margin-top: 24px;">
+                <div class="input-group">
+                  <label class="input-label">Mobile Number</label>
+                  <div style="display: flex; gap: 8px;">
+                    <div style="padding: 14px 12px; background: #EAE6DF; border-radius: var(--radius-md); font-weight: 700; font-size: 14px;">+91</div>
+                    <input type="tel" id="input-phone" class="input-field" placeholder="98765 43210" value="9876543210">
+                  </div>
+                </div>
+                <button class="btn-primary" id="btn-send-otp" style="margin-top: 10px;">
+                  Continue &amp; Get OTP →
+                </button>
+              </div>
+
+              <!-- Step B: OTP Input (Initially Hidden) -->
+              <div id="auth-otp-step" style="display: none; margin-top: 24px;">
+                <span style="font-size: 13px; color: var(--text-secondary);">Enter 6-digit verification code sent to <strong id="display-otp-phone">+91 9876543210</strong></span>
+                
+                <div class="otp-boxes">
+                  <input type="text" maxlength="1" class="otp-box" value="1">
+                  <input type="text" maxlength="1" class="otp-box" value="2">
+                  <input type="text" maxlength="1" class="otp-box" value="3">
+                  <input type="text" maxlength="1" class="otp-box" value="4">
+                  <input type="text" maxlength="1" class="otp-box" value="5">
+                  <input type="text" maxlength="1" class="otp-box" value="6">
+                </div>
+
+                <button class="btn-primary" id="btn-verify-otp">
+                  Verify &amp; Enter App ✓
+                </button>
+              </div>
+            </div>
+
+            <div style="text-align: center; font-size: 11px; color: var(--text-muted);">
+              By continuing, you agree to Aetherion Terms &amp; Privacy Policy.
+            </div>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             4. LOCATION PERMISSION SETUP
+             ================================================================= -->
+        <section id="view-location-perm" class="screen-section">
+          <div class="auth-container" style="justify-content: center; text-align: center; gap: 24px;">
+            <div style="width: 80px; height: 80px; border-radius: 50%; background: #E8F2EC; color: var(--primary-dark-green); font-size: 38px; display: flex; align-items: center; justify-content: center; margin: 0 auto;">📍</div>
+            <div>
+              <h2 class="auth-title">Allow Location Access</h2>
+              <p class="auth-subtitle" style="margin-top: 6px;">Aetherion needs your location to dispatch the nearest verified technicians to your doorstep.</p>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; width: 100%;">
+              <button class="btn-primary" id="btn-use-current-location">
+                <span>📍 Use Current Location (Jaipur, Rajasthan)</span>
+              </button>
+              <button class="btn-secondary" id="btn-enter-location-manual">
+                <span>✏️ Enter Address Manually</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             5. USER HOME SCREEN
+             ================================================================= -->
+        <section id="view-home" class="screen-section">
+          
+          <!-- Top Greeting Bar -->
+          <div class="home-greeting-bar">
+            <div>
+              <h1 class="greeting-title">Hello, Priyanshu 👋</h1>
+              <p class="greeting-sub">📍 Vaishali Nagar, Jaipur</p>
+            </div>
+            <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" class="header-avatar" id="home-profile-avatar" alt="Profile">
+          </div>
+
+          <div class="screen-body">
+            
+            <!-- Hero "Report a Problem" Card -->
+            <div class="hero-report-card" id="home-hero-report-btn">
+              <div class="hero-report-left">
+                <div class="hero-report-icon">📷</div>
+                <div class="hero-report-text">
+                  <h3>Report a Problem</h3>
+                  <p>Get AI diagnosis &amp; upfront price quote</p>
+                </div>
+              </div>
+              <div style="font-size: 20px;">→</div>
+            </div>
+
+            <!-- Active Service Widget (Rendered dynamically if active job) -->
+            <div id="home-active-job-container"></div>
+
+            <!-- Category Grid Section -->
+            <div>
+              <div class="category-section-title">
+                <span>Select Service</span>
+                <span style="font-size: 11px; color: var(--accent-brown); cursor: pointer;" id="home-view-all-services">View all</span>
+              </div>
+              <div class="category-grid" style="margin-top: 10px;">
+                <div class="category-card" data-cat="AC / HVAC">
+                  <div class="category-icon">❄️</div>
+                  <span class="category-name">AC / HVAC</span>
+                </div>
+                <div class="category-card" data-cat="Electrical">
+                  <div class="category-icon">⚡</div>
+                  <span class="category-name">Electrical</span>
+                </div>
+                <div class="category-card" data-cat="Plumbing">
+                  <div class="category-icon">🚰</div>
+                  <span class="category-name">Plumbing</span>
+                </div>
+                <div class="category-card" data-cat="Washing Machine">
+                  <div class="category-icon">🧺</div>
+                  <span class="category-name">Washing Machine</span>
+                </div>
+                <div class="category-card" data-cat="Refrigerator">
+                  <div class="category-icon">🧊</div>
+                  <span class="category-name">Refrigerator</span>
+                </div>
+                <div class="category-card" data-cat="Machinery">
+                  <div class="category-icon">🔧</div>
+                  <span class="category-name">Machinery</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- How Aetherion Works Card -->
+            <div class="card" id="home-how-it-works-btn" style="background: #FFFFFF; border-radius: 16px; padding: 14px 16px; border: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 20px;">⚡</span>
+                <div>
+                  <div style="font-size: 13px; font-weight: 800; color: var(--primary-dark-green);">How Aetherion Works</div>
+                  <div style="font-size: 10px; color: var(--text-muted);">AI Diagnostics to Digital Handover</div>
+                </div>
+              </div>
+              <span style="font-size: 14px; color: var(--accent-brown);">→</span>
+            </div>
+
+            <!-- Recent Services List -->
+            <div>
+              <div class="category-section-title" style="margin-bottom: 8px;">
+                <span>Recent Services</span>
+                <span style="font-size: 11px; color: var(--text-muted);">Past bookings</span>
+              </div>
+
+              <div class="recent-service-card" onclick="userApp.showReceiptModal('#1011', 'AC Cooling Failure', 1450)">
+                <div class="recent-service-left">
+                  <div class="recent-service-icon">❄️</div>
+                  <div class="recent-service-info">
+                    <h4>AC Repair (#1011)</h4>
+                    <span>Completed • 12 May 2024</span>
+                  </div>
+                </div>
+                <div style="font-size: 13px; font-weight: 800; color: var(--primary-dark-green);">₹1,450</div>
+              </div>
+
+              <div class="recent-service-card" onclick="userApp.showReceiptModal('#1002', 'Submersible Pump Service', 900)">
+                <div class="recent-service-left">
+                  <div class="recent-service-icon">⚡</div>
+                  <div class="recent-service-info">
+                    <h4>Motor Repair (#1002)</h4>
+                    <span>Completed • 05 May 2024</span>
+                  </div>
+                </div>
+                <div style="font-size: 13px; font-weight: 800; color: var(--primary-dark-green);">₹900</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Navigation -->
+          <nav class="bottom-nav">
+            <div class="nav-item active" data-nav="home">
+              <svg fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+              <span>Home</span>
+            </div>
+            <div class="nav-item" data-nav="services">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+              <span>Services</span>
+            </div>
+            <div class="nav-item" data-nav="jobs">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+              <span>Jobs</span>
+            </div>
+            <div class="nav-item" data-nav="notifications">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+              <span>Alerts</span>
+            </div>
+            <div class="nav-item" data-nav="profile">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+              <span>Profile</span>
+            </div>
+          </nav>
+        </section>
+
+
+        <!-- =================================================================
+             6. REPORT PROBLEM: SELECT SERVICE (Step 1/5)
+             ================================================================= -->
+        <section id="view-select-category" class="screen-section">
+          <div class="view-topbar">
+            <button class="view-back-btn" onclick="userApp.showView('home')">←</button>
+            <span class="view-topbar-title">Report a Problem</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="step-indicator">
+            <div class="step-bar"><div class="step-bar-fill" style="width: 20%;"></div></div>
+            <span style="font-size: 10px; font-weight: 700; color: var(--text-muted);">1 / 5</span>
+          </div>
+
+          <div class="screen-body">
+            <div>
+              <h2 style="font-size: 18px; font-weight: 800; color: var(--primary-dark-green);">What needs repair?</h2>
+              <p style="font-size: 12px; color: var(--text-secondary);">Select the category of your faulty equipment</p>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 10px;" id="problem-category-list">
+              <div class="card category-select-option active" data-category="AC / HVAC" style="padding: 16px; background: #FFFFFF; border-radius: 16px; border: 2px solid var(--primary-dark-green); display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span style="font-size: 24px;">❄️</span>
+                  <div>
+                    <strong style="font-size: 14px; color: var(--primary-dark-green);">AC / HVAC</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Split AC, Window AC, Cooling coil</div>
+                  </div>
+                </div>
+                <span style="color: var(--primary-dark-green); font-weight: bold;">✓</span>
+              </div>
+
+              <div class="card category-select-option" data-category="Electrical" style="padding: 16px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span style="font-size: 24px;">⚡</span>
+                  <div>
+                    <strong style="font-size: 14px;">Electrical</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Short circuit, MCB, Wiring, Motor</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card category-select-option" data-category="Plumbing" style="padding: 16px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span style="font-size: 24px;">🚰</span>
+                  <div>
+                    <strong style="font-size: 14px;">Plumbing</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Leakage, Tap, Pipe blockage, Pump</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card category-select-option" data-category="Washing Machine" style="padding: 16px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span style="font-size: 24px;">🧺</span>
+                  <div>
+                    <strong style="font-size: 14px;">Washing Machine</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Drum vibration, Spin failure, Drainage</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card category-select-option" data-category="Refrigerator" style="padding: 16px; background: #FFFFFF; border-radius: 16px; border: 1.5px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                  <span style="font-size: 24px;">🧊</span>
+                  <div>
+                    <strong style="font-size: 14px;">Refrigerator</strong>
+                    <div style="font-size: 11px; color: var(--text-muted);">Defrost issue, Thermostat, Compressor</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn-primary" id="btn-step1-next" style="margin-top: auto;">
+              Next: Upload Photo / Video →
+            </button>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             7. PHOTO / VIDEO UPLOAD (Step 2/5)
+             ================================================================= -->
+        <section id="view-upload-media" class="screen-section">
+          <div class="view-topbar">
+            <button class="view-back-btn" onclick="userApp.showView('select-category')">←</button>
+            <span class="view-topbar-title">Upload Evidence</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="step-indicator">
+            <div class="step-bar"><div class="step-bar-fill" style="width: 40%;"></div></div>
+            <span style="font-size: 10px; font-weight: 700; color: var(--text-muted);">2 / 5</span>
+          </div>
+
+          <div class="screen-body">
+            <div>
+              <h2 style="font-size: 18px; font-weight: 800; color: var(--primary-dark-green);">Show us the problem</h2>
+              <p style="font-size: 12px; color: var(--text-secondary);">Capture clear photos or a short video of the unit</p>
+            </div>
+
+            <!-- Upload Dropzone / Camera -->
+            <div class="upload-dropzone" id="upload-media-box">
+              <div class="upload-icon-circle">📷</div>
+              <div>
+                <strong style="font-size: 14px; color: var(--primary-dark-green);">Take Photo or Upload</strong>
+                <p style="font-size: 11px; color: var(--text-muted);">Max 5 photos + optional short clip</p>
+              </div>
+              <div style="display: flex; gap: 8px; margin-top: 6px;">
+                <button class="btn-secondary" style="padding: 6px 12px; font-size: 11px;">📷 Camera</button>
+                <button class="btn-secondary" style="padding: 6px 12px; font-size: 11px;">🖼 Gallery</button>
+                <button class="btn-secondary" style="padding: 6px 12px; font-size: 11px;">🎥 Video</button>
+              </div>
+            </div>
+
+            <!-- Angle Tags Recommended -->
+            <div>
+              <span style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">Suggested Photo Angles:</span>
+              <div class="angle-tags-row">
+                <span class="angle-tag active">✓ Front View</span>
+                <span class="angle-tag active">✓ Outdoor Unit</span>
+                <span class="angle-tag active">✓ Control Panel</span>
+                <span class="angle-tag">+ Damage Area</span>
+              </div>
+            </div>
+
+            <!-- Thumbnails Preview Grid -->
+            <div>
+              <span style="font-size: 11px; font-weight: 700; color: var(--text-secondary);">Uploaded Files (3):</span>
+              <div class="preview-thumbnails-grid">
+                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400" class="preview-thumb" alt="AC 1">
+                <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400" class="preview-thumb" alt="AC 2">
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=400" class="preview-thumb" alt="AC 3">
+              </div>
+            </div>
+
+            <button class="btn-primary" id="btn-step2-next" style="margin-top: auto;">
+              Next: Machine Details →
+            </button>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             8. MACHINE & PROBLEM DETAILS (Step 3/5)
+             ================================================================= -->
+        <section id="view-machine-details" class="screen-section">
+          <div class="view-topbar">
+            <button class="view-back-btn" onclick="userApp.showView('upload-media')">←</button>
+            <span class="view-topbar-title">Equipment Details</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="step-indicator">
+            <div class="step-bar"><div class="step-bar-fill" style="width: 60%;"></div></div>
+            <span style="font-size: 10px; font-weight: 700; color: var(--text-muted);">3 / 5</span>
+          </div>
+
+          <div class="screen-body">
+            
+            <!-- Section 1: Equipment Info -->
+            <div class="card" style="background: #FFFFFF; border-radius: 16px; padding: 14px; border: 1px solid var(--border-light);">
+              <h3 style="font-size: 13px; font-weight: 800; color: var(--primary-dark-green); margin-bottom: 10px;">🏷️ Equipment Information</h3>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                <div class="input-group">
+                  <label class="input-label">Equipment</label>
+                  <input type="text" class="input-field" id="input-equip-name" value="Split AC" style="padding: 10px;">
+                </div>
+                <div class="input-group">
+                  <label class="input-label">Brand</label>
+                  <input type="text" class="input-field" id="input-equip-brand" value="Voltas" style="padding: 10px;">
+                </div>
+                <div class="input-group">
+                  <label class="input-label">Model No.</label>
+                  <input type="text" class="input-field" id="input-equip-model" value="183V EY (1.5 Ton)" style="padding: 10px;">
+                </div>
+                <div class="input-group">
+                  <label class="input-label">Approx. Age</label>
+                  <input type="text" class="input-field" id="input-equip-age" value="3 Years" style="padding: 10px;">
+                </div>
+              </div>
+            </div>
+
+            <!-- Section 2: Problem Symptom Questions -->
+            <div class="card" style="background: #FFFFFF; border-radius: 16px; padding: 14px; border: 1px solid var(--border-light);">
+              <h3 style="font-size: 13px; font-weight: 800; color: var(--primary-dark-green); margin-bottom: 10px;">🔍 What Happened?</h3>
+              
+              <div class="input-group" style="margin-bottom: 10px;">
+                <label class="input-label">Describe Issue</label>
+                <input type="text" class="input-field" id="input-issue-text" value="AC chal raha hai lekin cooling nahi ho rahi aur unusual noise aa rahi hai." style="padding: 10px;">
+              </div>
+
+              <div style="font-size: 11px; font-weight: 700; color: var(--text-secondary); margin-bottom: 4px;">When did it start?</div>
+              <div style="display: flex; gap: 6px; margin-bottom: 10px;">
+                <span class="angle-tag active">Today</span>
+                <span class="angle-tag">Few days ago</span>
+                <span class="angle-tag">&gt; 1 week</span>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; align-items: center; font-size: 12px; margin-bottom: 6px;">
+                <span>Any unusual burning smell / spark?</span>
+                <span style="font-weight: 700; color: #C62828;">Yes</span>
+              </div>
+            </div>
+
+            <!-- Section 3: Voice Description -->
+            <div class="card" style="background: linear-gradient(135deg, #1B4332 0%, #143527 100%); color: #FFFFFF; border-radius: 16px; padding: 14px; text-align: center;">
+              <div style="font-size: 12px; font-weight: 700; margin-bottom: 6px;">🎙️ Describe by Voice (Hindi / English)</div>
+              <button class="voice-mic-btn" id="btn-user-voice-record" style="width: 48px; height: 48px; border-radius: 50%; background: var(--accent-brown); border: none; font-size: 20px; color: #FFFFFF; cursor: pointer; margin: 4px 0;">🎤</button>
+              <div style="font-size: 10px; color: rgba(255,255,255,0.8);" id="user-voice-transcript">"Bhai AC on hai par hawa bilkul thandi nahi de raha."</div>
+            </div>
+
+            <button class="btn-primary" id="btn-step3-next" style="margin-top: auto;">
+              Next: Location &amp; Review →
+            </button>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             9. SERVICE LOCATION SETUP (Step 4/5)
+             ================================================================= -->
+        <section id="view-service-location" class="screen-section">
+          <div class="view-topbar">
+            <button class="view-back-btn" onclick="userApp.showView('machine-details')">←</button>
+            <span class="view-topbar-title">Service Address</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="step-indicator">
+            <div class="step-bar"><div class="step-bar-fill" style="width: 80%;"></div></div>
+            <span style="font-size: 10px; font-weight: 700; color: var(--text-muted);">4 / 5</span>
+          </div>
+
+          <div class="screen-body">
+            <div>
+              <h2 style="font-size: 18px; font-weight: 800; color: var(--primary-dark-green);">Where should technician visit?</h2>
+              <p style="font-size: 12px; color: var(--text-secondary);">Confirm location details for accurate dispatch</p>
+            </div>
+
+            <div class="card" style="background: #FFFFFF; border-radius: 16px; padding: 14px; border: 1px solid var(--border-light);">
+              <div class="input-group">
+                <label class="input-label">City / Area</label>
+                <input type="text" class="input-field" id="input-loc-city" value="Vaishali Nagar, Jaipur, Rajasthan" style="padding: 10px;">
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">Building / Campus / Hostel Block</label>
+                <input type="text" class="input-field" id="input-loc-building" value="Hostel Block B / Flat 304" style="padding: 10px;">
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">Floor &amp; Room</label>
+                <input type="text" class="input-field" id="input-loc-floor" value="3rd Floor, Room 304" style="padding: 10px;">
+              </div>
+
+              <div class="input-group">
+                <label class="input-label">Entry Instructions / Landmark</label>
+                <input type="text" class="input-field" id="input-loc-notes" value="Gate no. 2 se entry karna, opposite cafeteria" style="padding: 10px;">
+              </div>
+            </div>
+
+            <button class="btn-primary" id="btn-step4-next" style="margin-top: auto;">
+              Next: Review &amp; AI Diagnose →
+            </button>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             10. REVIEW REQUEST (Step 5/5)
+             ================================================================= -->
+        <section id="view-review-request" class="screen-section">
+          <div class="view-topbar">
+            <button class="view-back-btn" onclick="userApp.showView('service-location')">←</button>
+            <span class="view-topbar-title">Review Request</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="step-indicator">
+            <div class="step-bar"><div class="step-bar-fill" style="width: 100%;"></div></div>
+            <span style="font-size: 10px; font-weight: 700; color: var(--text-muted);">5 / 5</span>
+          </div>
+
+          <div class="screen-body">
+            
+            <div class="card" style="background: #FFFFFF; border-radius: 18px; padding: 18px; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-light); padding-bottom: 10px;">
+                <div>
+                  <span class="hub-badge" id="review-cat-badge">AC / HVAC</span>
+                  <h3 style="font-size: 15px; font-weight: 800; color: var(--primary-dark-green); margin-top: 4px;" id="review-equip-title">Voltas Split AC (3 Yrs)</h3>
+                </div>
+                <button class="btn-secondary" style="padding: 4px 10px; font-size: 10px;" onclick="userApp.showView('select-category')">✏️ Edit</button>
+              </div>
+
+              <div style="font-size: 12px; color: var(--text-primary); line-height: 1.5;">
+                <div><strong>Issue:</strong> <span id="review-issue-desc">AC running but not cooling + unusual noise</span></div>
+                <div><strong>Location:</strong> <span id="review-loc-text">Hostel Block B, Room 304, Jaipur</span></div>
+                <div><strong>Evidence:</strong> 3 Photos + Voice Note Attached ✓</div>
+              </div>
+
+              <div style="background: #FAF7F2; border-radius: 12px; padding: 10px; font-size: 11px; color: var(--text-secondary); display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 16px;">🤖</span>
+                <span>AI will analyze multi-modal evidence to give upfront parts list and cost estimate.</span>
+              </div>
+            </div>
+
+            <button class="btn-primary" id="btn-trigger-ai-diagnosis" style="margin-top: auto; background: var(--accent-brown);">
+              <span>🧠 Analyse Problem with AI →</span>
+            </button>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             11. AI DIAGNOSING LOADER (Multi-step animation)
+             ================================================================= -->
+        <section id="view-ai-analyzing" class="screen-section">
+          <div class="screen-body" style="justify-content: center; align-items: center; text-align: center;">
+            
+            <div class="ai-scan-radar">🧠</div>
+            
+            <h2 style="font-size: 20px; font-weight: 800; color: var(--primary-dark-green); margin-top: 16px;">ANALYSING PROBLEM...</h2>
+            <p style="font-size: 12px; color: var(--text-secondary); max-width: 260px;">Multi-modal AI vision engine running diagnostic models</p>
+
+            <div class="card ai-analyzing-card" style="width: 100%; margin-top: 20px;">
+              <div class="ai-checklist">
+                <div class="ai-check-item done" id="scan-step-1">✓ 1. Multi-angle images processed</div>
+                <div class="ai-check-item done" id="scan-step-2">✓ 2. Equipment model identified (Voltas Split AC)</div>
+                <div class="ai-check-item done" id="scan-step-3">✓ 3. Noise &amp; cooling symptoms correlated</div>
+                <div class="ai-check-item done" id="scan-step-4">✓ 4. Possible root causes generated</div>
+                <div class="ai-check-item done" id="scan-step-5">✓ 5. Transparent parts &amp; labour quote estimated</div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             12 & 13. AI DIAGNOSIS RESULT & COST ESTIMATE
+             ================================================================= -->
+        <section id="view-ai-result" class="screen-section">
+          <div class="view-topbar">
+            <button class="view-back-btn" onclick="userApp.showView('review-request')">←</button>
+            <span class="view-topbar-title">AI Diagnosis Result</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="screen-body">
+            
+            <!-- Diagnosis Card -->
+            <div class="diag-result-header">
+              <div class="diag-badge-row">
+                <span class="confidence-pill" id="diag-confidence-pill">92% AI Confidence</span>
+                <span class="severity-pill" id="diag-severity-pill">HIGH SEVERITY</span>
+              </div>
+              <h2 style="font-size: 18px; font-weight: 800; color: var(--primary-dark-green); margin-bottom: 6px;" id="diag-detected-title">❄️ AC Cooling Failure</h2>
+              <p style="font-size: 12px; color: var(--text-secondary);" id="diag-recommended-action">Recommended Action: Professional inspection &amp; gas recharge required.</p>
+            </div>
+
+            <!-- Root Causes List -->
+            <div class="card" style="background: #FFFFFF; border-radius: 16px; padding: 14px; border: 1px solid var(--border-light);">
+              <h4 style="font-size: 12px; font-weight: 800; color: var(--primary-dark-green); margin-bottom: 8px;">Possible Causes Detected:</h4>
+              <ul style="font-size: 12px; color: var(--text-secondary); padding-left: 18px; line-height: 1.6;" id="diag-causes-list">
+                <li>Refrigerant leak or low gas pressure</li>
+                <li>Compressor capacitor overload / relay fault</li>
+                <li>Condenser coil &amp; air filter blockage</li>
+              </ul>
+            </div>
+
+            <!-- Required Parts List -->
+            <div class="card" style="background: #FFFFFF; border-radius: 16px; padding: 14px; border: 1px solid var(--border-light);">
+              <h4 style="font-size: 12px; font-weight: 800; color: var(--primary-dark-green); margin-bottom: 8px;">Estimated Required Parts:</h4>
+              <div style="display: flex; gap: 6px; flex-wrap: wrap;" id="diag-parts-chips">
+                <span class="angle-tag active">Refrigerant (R32)</span>
+                <span class="angle-tag active">Air Filter</span>
+                <span class="angle-tag active">Electrical Relay 30A</span>
+              </div>
+            </div>
+
+            <!-- Cost Breakdown Card -->
+            <div class="cost-breakdown-card">
+              <div style="font-size: 13px; font-weight: 800; margin-bottom: 10px; color: rgba(255,255,255,0.9);">ESTIMATED REPAIR COST</div>
+              <div class="cost-item-row"><span>Estimated Parts:</span> <strong id="cost-parts-text">₹700 – ₹1,000</strong></div>
+              <div class="cost-item-row"><span>Labour Charge:</span> <strong id="cost-labour-text">₹400 – ₹600</strong></div>
+              <div class="cost-item-row"><span>Platform Fee:</span> <strong>₹150</strong></div>
+              <div class="cost-total-row"><span>Estimated Total:</span> <strong id="cost-total-text">₹1,200 – ₹1,800</strong></div>
+              <div style="font-size: 10px; color: rgba(255,255,255,0.7); margin-top: 6px;">*Final quote confirmed after physical inspection</div>
+            </div>
+
+            <button class="btn-primary" id="btn-find-technicians" style="margin-top: auto;">
+              <span>Find Nearby Technicians →</span>
+            </button>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             14 & 15. RADAR SEARCH & TECHNICIAN MATCHED
+             ================================================================= -->
+        <section id="view-tech-searching" class="screen-section">
+          <div class="screen-body" style="text-align: center; justify-content: center; align-items: center;">
+            
+            <div class="radar-box">📡</div>
+            
+            <h2 style="font-size: 20px; font-weight: 800; color: var(--primary-dark-green); margin-top: 10px;">Finding Best Technician...</h2>
+            <p style="font-size: 12px; color: var(--text-secondary); max-width: 260px;">Broadcasting request to nearby verified AC Specialists in Jaipur</p>
+
+            <div class="card" style="width: 100%; background: #FFFFFF; border-radius: 16px; padding: 14px; border: 1px solid var(--border-light); margin-top: 20px; text-align: left; font-size: 12px;">
+              <div style="color: #2E7D32; font-weight: 700; margin-bottom: 6px;">📡 3 Technicians Notified:</div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span>• Rahul Kumar (AC Specialist)</span> <strong>2.4 km (4.8⭐)</strong></div>
+              <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span>• Amit Sharma (Electrical)</span> <strong>2.8 km (4.7⭐)</strong></div>
+              <div style="display: flex; justify-content: space-between;"><span>• Vikram Singh (HVAC Pro)</span> <strong>4.2 km (4.9⭐)</strong></div>
+            </div>
+
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 16px;">
+              ⏳ Waiting for acceptance (Under 10s demo)
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             16 & 17. TECHNICIAN ACCEPTED & PROFILE CARD
+             ================================================================= -->
+        <section id="view-tech-found" class="screen-section">
+          <div class="view-topbar">
+            <span class="hub-badge" style="background: #2E7D32;">✓ REQUEST ACCEPTED</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="screen-body">
+            <div style="text-align: center;">
+              <h2 style="font-size: 20px; font-weight: 800; color: var(--primary-dark-green);">Technician Found!</h2>
+              <p style="font-size: 12px; color: var(--text-secondary);">Your request was accepted by the optimal nearby partner</p>
+            </div>
+
+            <!-- Technician Profile Card -->
+            <div class="card" style="background: #FFFFFF; border-radius: 20px; padding: 20px; border: 1.5px solid var(--primary-dark-green); box-shadow: var(--shadow-md); text-align: center;">
+              <img src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?w=120" style="width: 72px; height: 72px; border-radius: 50%; object-fit: cover; margin: 0 auto 10px; border: 3px solid #EBF2EE;" alt="Rahul Kumar">
+              
+              <h3 style="font-size: 17px; font-weight: 800; color: var(--primary-dark-green);" id="matched-tech-name">Rahul Kumar</h3>
+              <div style="font-size: 12px; font-weight: 700; color: var(--accent-brown); margin-bottom: 8px;">AC &amp; HVAC Specialist</div>
+
+              <div style="display: flex; justify-content: center; gap: 14px; font-size: 12px; color: var(--text-secondary); margin-bottom: 14px;">
+                <span>⭐ <strong>4.8</strong> (128 Jobs)</span>
+                <span>📍 <strong>2.4 km away</strong></span>
+                <span>⏱️ <strong>ETA 12 Min</strong></span>
+              </div>
+
+              <div style="display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+                <span class="angle-tag active" style="font-size: 10px;">✓ Identity Verified</span>
+                <span class="angle-tag active" style="font-size: 10px;">✓ Skill Verified</span>
+                <span class="angle-tag active" style="font-size: 10px;">5 Yrs Exp</span>
+              </div>
+
+              <button class="btn-primary" id="btn-go-live-tracking">
+                <span>🗺️ Track Technician Live →</span>
+              </button>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+              <button class="btn-secondary" id="btn-open-contact-modal" style="flex: 1;">📞 Call Technician</button>
+              <button class="btn-secondary" id="btn-cancel-request" style="flex: 1; color: #C62828; border-color: #FFCDD2;">Cancel</button>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             18 & 19. LIVE TRACKING MAP & TIMELINE
+             ================================================================= -->
+        <section id="view-live-tracking" class="screen-section">
+          <div class="view-topbar">
+            <button class="view-back-btn" onclick="userApp.showView('home')">←</button>
+            <span class="view-topbar-title">Live Tracking</span>
+            <button class="btn-text" id="btn-top-contact" style="font-size: 18px; background: none; border: none; cursor: pointer;">📞</button>
+          </div>
+
+          <div class="screen-body">
+            
+            <!-- Map Simulation -->
+            <div class="map-visual-box">
+              <div class="map-route-line"></div>
+              <div class="map-tech-marker" id="map-tech-icon">🛵</div>
+              <div class="map-user-marker">🏠</div>
+              <div style="position: absolute; bottom: 8px; left: 12px; background: rgba(255,255,255,0.9); padding: 4px 10px; border-radius: 6px; font-size: 10px; font-weight: 700; color: var(--primary-dark-green);">
+                Rahul is 2.4 km away • ETA 12 min
+              </div>
+            </div>
+
+            <!-- Technician Info Mini Card -->
+            <div class="card" style="background: #FFFFFF; border-radius: 16px; padding: 12px 16px; border: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <img src="https://images.unsplash.com/photo-1540569014015-19a7be504e3a?w=100" style="width: 42px; height: 42px; border-radius: 50%; object-fit: cover;" alt="Rahul">
+                <div>
+                  <h4 style="font-size: 14px; font-weight: 800; color: var(--primary-dark-green);">Rahul Kumar</h4>
+                  <span style="font-size: 11px; color: var(--text-secondary);">AC Specialist • ⭐ 4.8</span>
+                </div>
+              </div>
+              <button class="btn-secondary" id="btn-tracking-call" style="padding: 6px 14px; font-size: 12px;">📞 Call</button>
+            </div>
+
+            <!-- Step Timeline -->
+            <div class="timeline-stepper">
+              <div class="timeline-step completed">
+                <div class="timeline-icon" style="background: #E8F5E9; color: #2E7D32;">✓</div>
+                <span>1. Request Accepted (10:15 AM)</span>
+              </div>
+              <div class="timeline-step current" id="timeline-step-ontheway">
+                <div class="timeline-icon" style="background: #FFF3E0; color: #E65100;">🛵</div>
+                <span>2. On the way (ETA 12 min)</span>
+              </div>
+              <div class="timeline-step" id="timeline-step-arrived">
+                <div class="timeline-icon">📍</div>
+                <span>3. Technician Arrival</span>
+              </div>
+              <div class="timeline-step" id="timeline-step-repair">
+                <div class="timeline-icon">🔧</div>
+                <span>4. Physical Inspection &amp; Repair</span>
+              </div>
+              <div class="timeline-step" id="timeline-step-done">
+                <div class="timeline-icon">✓</div>
+                <span>5. Completion &amp; Payment</span>
+              </div>
+            </div>
+
+            <!-- Demo Quick Status Simulation Buttons -->
+            <div style="background: #EAE6DF; border-radius: 12px; padding: 10px; font-size: 11px; text-align: center;">
+              <span style="font-weight: 700; color: var(--primary-dark-green);">⚡ SIMULATE TECH ACTIONS:</span>
+              <div style="display: flex; gap: 6px; margin-top: 6px;">
+                <button class="btn-secondary" id="sim-tech-arrived" style="flex: 1; padding: 6px; font-size: 10px;">Mark Arrived</button>
+                <button class="btn-secondary" id="sim-tech-inspect" style="flex: 1; padding: 6px; font-size: 10px;">Quote &amp; Repair</button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             20 & 21. TECHNICIAN ARRIVED & PHYSICAL INSPECTION
+             ================================================================= -->
+        <section id="view-tech-arrived" class="screen-section">
+          <div class="view-topbar">
+            <span class="hub-badge" style="background: #E65100;">🔔 ARRIVAL ALERT</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="screen-body" style="text-align: center; justify-content: center; align-items: center;">
+            <div style="width: 72px; height: 72px; border-radius: 50%; background: #E8F5E9; color: #2E7D32; font-size: 36px; display: flex; align-items: center; justify-content: center;">📍</div>
+            <h2 style="font-size: 20px; font-weight: 800; color: var(--primary-dark-green); margin-top: 12px;">Technician Has Arrived!</h2>
+            <p style="font-size: 12px; color: var(--text-secondary); max-width: 260px;">Rahul Kumar is at your doorstep for physical equipment inspection.</p>
+
+            <div class="card" style="width: 100%; background: #FFFFFF; border-radius: 18px; padding: 16px; border: 1px solid var(--border-light); margin-top: 18px; text-align: left;">
+              <h4 style="font-size: 13px; font-weight: 800; color: var(--primary-dark-green); margin-bottom: 8px;">Inspection Details:</h4>
+              <div style="font-size: 12px; color: var(--text-secondary); line-height: 1.5;">
+                <div>• AI Diagnosis: <strong>AC Cooling Failure</strong></div>
+                <div>• Physical Check: <strong>Gas Pressure 35 PSI (Low) + Filter Clog</strong></div>
+                <div>• Required Spares: <strong>R32 Gas Refill + Mesh Filter</strong></div>
+              </div>
+            </div>
+
+            <button class="btn-primary" id="btn-view-final-quote" style="margin-top: 20px;">
+              <span>Review Final Repair Quote →</span>
+            </button>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             22. FINAL QUOTE APPROVAL
+             ================================================================= -->
+        <section id="view-quote-approval" class="screen-section">
+          <div class="view-topbar">
+            <span class="view-topbar-title">Final Quote Approval</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="screen-body">
+            <div>
+              <h2 style="font-size: 18px; font-weight: 800; color: var(--primary-dark-green);">Approve Repair Quote</h2>
+              <p style="font-size: 12px; color: var(--text-secondary);">Repair will only begin once you approve the verified quotation</p>
+            </div>
+
+            <div class="cost-breakdown-card" style="background: #FFFFFF; color: var(--text-primary); border: 1.5px solid var(--primary-dark-green);">
+              <h3 style="font-size: 14px; font-weight: 800; color: var(--primary-dark-green); margin-bottom: 12px;">ITEMIZED FINAL QUOTATION</h3>
+              
+              <div class="cost-item-row" style="color: var(--text-primary);"><span>Labour Charges:</span> <strong>₹500.00</strong></div>
+              <div class="cost-item-row" style="color: var(--text-primary);"><span>Refrigerant Gas (R32 1kg):</span> <strong>₹600.00</strong></div>
+              <div class="cost-item-row" style="color: var(--text-primary);"><span>Air Mesh Filter Replacement:</span> <strong>₹200.00</strong></div>
+              <div class="cost-item-row" style="color: var(--text-primary);"><span>Platform &amp; Service Fee:</span> <strong>₹150.00</strong></div>
+              
+              <div class="cost-total-row" style="color: var(--primary-dark-green); border-top-color: var(--border-medium);">
+                <span>Total Amount:</span>
+                <strong style="font-size: 18px;">₹1,450.00</strong>
+              </div>
+            </div>
+
+            <div style="font-size: 11px; color: var(--text-muted); background: #FAF7F2; padding: 10px; border-radius: 10px;">
+              🛡️ Includes 30-Day Aetherion Service Warranty &amp; Genuine Spares Guarantee.
+            </div>
+
+            <button class="btn-primary" id="btn-approve-repair" style="margin-top: auto;">
+              <span>✓ Approve Quote &amp; Start Repair</span>
+            </button>
+            <button class="btn-secondary" id="btn-reject-repair">
+              Reject / Contact Support
+            </button>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             23 & 24. REPAIR IN PROGRESS & TESTING
+             ================================================================= -->
+        <section id="view-repair-progress" class="screen-section">
+          <div class="view-topbar">
+            <span class="hub-badge" style="background: #1B4332;">REPAIR IN PROGRESS</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="screen-body">
+            <div style="text-align: center; margin: 10px 0;">
+              <div style="font-size: 40px; margin-bottom: 8px;">🔧</div>
+              <h2 style="font-size: 18px; font-weight: 800; color: var(--primary-dark-green);">Rahul is repairing your AC</h2>
+              <p style="font-size: 12px; color: var(--text-secondary);">Gas recharge and filter replacement in progress</p>
+            </div>
+
+            <!-- Testing Checklist Card -->
+            <div class="card" style="background: #FFFFFF; border-radius: 18px; padding: 16px; border: 1px solid var(--border-light);">
+              <h4 style="font-size: 13px; font-weight: 800; color: var(--primary-dark-green); margin-bottom: 10px;">Quality &amp; Testing Checklist:</h4>
+              <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12px;">
+                <div style="display: flex; align-items: center; gap: 8px; color: #2E7D32; font-weight: 600;"><span>✓</span> Gas Pressure Level (65 PSI Normal)</div>
+                <div style="display: flex; align-items: center; gap: 8px; color: #2E7D32; font-weight: 600;"><span>✓</span> Compressor Amperage &amp; Voltage Test</div>
+                <div style="display: flex; align-items: center; gap: 8px; color: #2E7D32; font-weight: 600;"><span>✓</span> Cooling Air Vent Temperature (16°C)</div>
+                <div style="display: flex; align-items: center; gap: 8px; color: #2E7D32; font-weight: 600;"><span>✓</span> Outdoor Unit Vibration &amp; Noise Normal</div>
+              </div>
+            </div>
+
+            <button class="btn-primary" id="btn-view-digital-proof" style="margin-top: auto;">
+              <span>Review Repair Proof &amp; Complete →</span>
+            </button>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             25 & 26. DIGITAL PROOF & COMPLETION CONFIRMATION
+             ================================================================= -->
+        <section id="view-proof-review" class="screen-section">
+          <div class="view-topbar">
+            <span class="view-topbar-title">Digital Proof of Work</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="screen-body">
+            <div>
+              <h2 style="font-size: 18px; font-weight: 800; color: var(--primary-dark-green);">Repair Completed!</h2>
+              <p style="font-size: 12px; color: var(--text-secondary);">Verify technician's before &amp; after photographic proof</p>
+            </div>
+
+            <!-- Before / After Grid -->
+            <div class="proof-comparison-grid">
+              <div class="proof-card">
+                <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=400" alt="Before">
+                <span>🔴 BEFORE REPAIR</span>
+              </div>
+              <div class="proof-card">
+                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400" alt="After">
+                <span>🟢 AFTER REPAIR</span>
+              </div>
+            </div>
+
+            <!-- Spares Used Card -->
+            <div class="card" style="background: #FFFFFF; border-radius: 16px; padding: 14px; border: 1px solid var(--border-light); font-size: 12px;">
+              <h4 style="font-size: 13px; font-weight: 800; color: var(--primary-dark-green); margin-bottom: 6px;">Parts Replaced:</h4>
+              <div style="color: var(--text-secondary);">• Refrigerant R32 (100% Filled)</div>
+              <div style="color: var(--text-secondary);">• Dust Mesh Filter (New OEM)</div>
+              <div style="margin-top: 8px; font-weight: 700; color: var(--primary-dark-green);">Customer Digital Handover Confirmed ✓</div>
+            </div>
+
+            <button class="btn-primary" id="btn-proceed-to-pay" style="margin-top: auto; background: var(--accent-brown);">
+              <span>💳 Confirm &amp; Pay ₹1,450 →</span>
+            </button>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             27. PAYMENT SCREEN (UPI / Card / Cash)
+             ================================================================= -->
+        <section id="view-payment" class="screen-section">
+          <div class="view-topbar">
+            <button class="view-back-btn" onclick="userApp.showView('proof-review')">←</button>
+            <span class="view-topbar-title">Payment Checkout</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="screen-body">
+            
+            <div class="card" style="background: linear-gradient(135deg, #1B4332 0%, #163628 100%); color: #FFFFFF; border-radius: 20px; padding: 20px; text-align: center;">
+              <span style="font-size: 12px; color: rgba(255,255,255,0.8);">TOTAL AMOUNT PAYABLE</span>
+              <h1 style="font-size: 32px; font-weight: 800; margin: 4px 0;">₹1,450.00</h1>
+              <span style="font-size: 11px; color: #81C784;">Job #1022 • Voltas AC Repair</span>
+            </div>
+
+            <div>
+              <h4 style="font-size: 13px; font-weight: 800; color: var(--primary-dark-green); margin-bottom: 10px;">Select Payment Method:</h4>
+              
+              <div style="display: flex; flex-direction: column; gap: 8px;">
+                <!-- Option UPI -->
+                <div class="card payment-option active" data-method="UPI" style="background: #FFFFFF; border-radius: 14px; padding: 14px; border: 2px solid var(--primary-dark-green); display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 22px;">📱</span>
+                    <div>
+                      <strong style="font-size: 13px; color: var(--primary-dark-green);">Instant UPI (GPay / PhonePe / Paytm)</strong>
+                      <div style="font-size: 10px; color: var(--text-muted);">Zero convenience fee</div>
+                    </div>
+                  </div>
+                  <span style="color: var(--primary-dark-green); font-weight: bold;">✓</span>
+                </div>
+
+                <!-- Option Card -->
+                <div class="card payment-option" data-method="CARD" style="background: #FFFFFF; border-radius: 14px; padding: 14px; border: 1.5px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 22px;">💳</span>
+                    <div>
+                      <strong style="font-size: 13px;">Credit / Debit Card</strong>
+                      <div style="font-size: 10px; color: var(--text-muted);">Visa, Mastercard, RuPay</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Option Cash -->
+                <div class="card payment-option" data-method="CASH" style="background: #FFFFFF; border-radius: 14px; padding: 14px; border: 1.5px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; cursor: pointer;">
+                  <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 22px;">💵</span>
+                    <div>
+                      <strong style="font-size: 13px;">Cash on Completion</strong>
+                      <div style="font-size: 10px; color: var(--text-muted);">Pay directly to Rahul</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn-primary" id="btn-submit-payment" style="margin-top: auto; background: #2E7D32;">
+              <span>🔒 Pay ₹1,450 Now →</span>
+            </button>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             28. RATING & FEEDBACK SCREEN
+             ================================================================= -->
+        <section id="view-rating" class="screen-section">
+          <div class="screen-body" style="text-align: center; justify-content: center;">
+            
+            <div style="font-size: 48px; margin-bottom: 8px;">🎉</div>
+            <h2 style="font-size: 22px; font-weight: 800; color: var(--primary-dark-green);">Payment Successful!</h2>
+            <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 16px;">How was your repair experience with Rahul?</p>
+
+            <!-- 5 Star Selector -->
+            <div style="display: flex; justify-content: center; gap: 8px; font-size: 32px; color: #D97706; margin-bottom: 16px; cursor: pointer;" id="star-rating-container">
+              <span class="star-item" data-val="1">★</span>
+              <span class="star-item" data-val="2">★</span>
+              <span class="star-item" data-val="3">★</span>
+              <span class="star-item" data-val="4">★</span>
+              <span class="star-item" data-val="5">★</span>
+            </div>
+
+            <!-- Feedback Tag Chips -->
+            <div style="display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin-bottom: 16px;">
+              <span class="angle-tag active">Fast Service</span>
+              <span class="angle-tag active">Professional</span>
+              <span class="angle-tag active">Transparent Pricing</span>
+              <span class="angle-tag">Clean Work</span>
+            </div>
+
+            <!-- Comment Input -->
+            <div class="input-group" style="text-align: left;">
+              <label class="input-label">Comments / Suggestions</label>
+              <textarea class="input-field" id="rating-comment-input" rows="3" placeholder="Rahul was very polite, solved the cooling problem quickly!">Rahul was very polite and solved the cooling issue in 30 minutes!</textarea>
+            </div>
+
+            <button class="btn-primary" id="btn-submit-review" style="margin-top: 16px;">
+              <span>Submit Review &amp; View Receipt →</span>
+            </button>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             29. DIGITAL SERVICE RECEIPT
+             ================================================================= -->
+        <section id="view-receipt" class="screen-section">
+          <div class="view-topbar">
+            <span class="view-topbar-title">Service Receipt</span>
+            <button class="btn-text" onclick="userApp.showView('home')" style="font-size: 13px; font-weight: 700; background: none; border: none; color: var(--primary-dark-green); cursor: pointer;">Done</button>
+          </div>
+
+          <div class="screen-body">
+            
+            <div class="receipt-paper">
+              <div class="receipt-stamp">PAID ✓</div>
+              
+              <div style="text-align: center; border-bottom: 1px dashed var(--border-medium); padding-bottom: 12px;">
+                <div style="font-size: 20px; font-weight: 800; color: var(--primary-dark-green);">⬡ AETHERION</div>
+                <div style="font-size: 10px; color: var(--text-muted);">Official Tax Invoice &amp; Handover Certificate</div>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 11px; color: var(--text-secondary);">
+                <div>Invoice: <strong id="rec-job-code">#1022</strong></div>
+                <div>Date: <strong id="rec-job-date">10 Aug 2026</strong></div>
+                <div>Technician: <strong>Rahul Kumar</strong></div>
+                <div>Customer: <strong>Priyanshu</strong></div>
+              </div>
+
+              <div style="border-top: 1px dashed var(--border-medium); border-bottom: 1px dashed var(--border-medium); padding: 10px 0; font-size: 12px;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span>Labour Service:</span> <span>₹500.00</span></div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span>Refrigerant Gas (R32):</span> <span>₹600.00</span></div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span>Air Filter OEM:</span> <span>₹200.00</span></div>
+                <div style="display: flex; justify-content: space-between;"><span>Platform Service Fee:</span> <span>₹150.00</span></div>
+              </div>
+
+              <div style="display: flex; justify-content: space-between; font-size: 16px; font-weight: 800; color: var(--primary-dark-green);">
+                <span>Total Paid:</span>
+                <span id="rec-total-amount">₹1,450.00</span>
+              </div>
+
+              <div style="font-size: 10px; color: #2E7D32; text-align: center; background: #E8F5E9; padding: 6px; border-radius: 8px;">
+                🛡️ 30-Day Warranty Active until 10 Sep 2026
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: auto;">
+              <button class="btn-primary" id="btn-download-receipt" style="flex: 1;">📥 Download PDF</button>
+              <button class="btn-secondary" onclick="userApp.showView('home')" style="flex: 1;">🏠 Back to Home</button>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             30. SERVICE HISTORY
+             ================================================================= -->
+        <section id="view-history" class="screen-section">
+          <div class="view-topbar">
+            <button class="view-back-btn" onclick="userApp.showView('home')">←</button>
+            <span class="view-topbar-title">Service History</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="screen-body">
+            <div style="display: flex; flex-direction: column; gap: 10px;" id="history-jobs-list">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             31. NOTIFICATIONS
+             ================================================================= -->
+        <section id="view-notifications" class="screen-section">
+          <div class="view-topbar">
+            <button class="view-back-btn" onclick="userApp.showView('home')">←</button>
+            <span class="view-topbar-title">Notifications</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="screen-body">
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <div class="card" style="background: #FFFFFF; border-radius: 14px; padding: 12px; border: 1px solid var(--border-light); display: flex; gap: 10px; align-items: flex-start;">
+                <span style="font-size: 20px;">💳</span>
+                <div>
+                  <h4 style="font-size: 13px; font-weight: 700; color: var(--primary-dark-green);">Payment Confirmed</h4>
+                  <p style="font-size: 11px; color: var(--text-secondary);">₹1,450 paid successfully for AC Repair #1022.</p>
+                  <span style="font-size: 9px; color: var(--text-muted);">Just now</span>
+                </div>
+              </div>
+
+              <div class="card" style="background: #FFFFFF; border-radius: 14px; padding: 12px; border: 1px solid var(--border-light); display: flex; gap: 10px; align-items: flex-start;">
+                <span style="font-size: 20px;">👨‍🔧</span>
+                <div>
+                  <h4 style="font-size: 13px; font-weight: 700; color: var(--primary-dark-green);">Technician Accepted</h4>
+                  <p style="font-size: 11px; color: var(--text-secondary);">Rahul Kumar has accepted your job request.</p>
+                  <span style="font-size: 9px; color: var(--text-muted);">15 mins ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- =================================================================
+             32 & 33. USER PROFILE & SETTINGS
+             ================================================================= -->
+        <section id="view-profile" class="screen-section">
+          <div class="view-topbar">
+            <button class="view-back-btn" onclick="userApp.showView('home')">←</button>
+            <span class="view-topbar-title">My Profile</span>
+            <div class="view-topbar-right"></div>
+          </div>
+
+          <div class="screen-body">
+            
+            <div class="card" style="background: #FFFFFF; border-radius: 18px; padding: 18px; border: 1px solid var(--border-light); text-align: center;">
+              <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=120" style="width: 68px; height: 68px; border-radius: 50%; object-fit: cover; margin: 0 auto 10px; border: 2px solid var(--primary-dark-green);" alt="Priyanshu">
+              <h3 style="font-size: 17px; font-weight: 800; color: var(--primary-dark-green);">Priyanshu Sharma</h3>
+              <p style="font-size: 12px; color: var(--text-secondary);">+91 98765 43210 • priyanshu@aetherion.io</p>
+            </div>
+
+            <div class="card" style="background: #FFFFFF; border-radius: 16px; padding: 6px 14px; border: 1px solid var(--border-light); font-size: 13px;">
+              <div style="padding: 12px 0; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; cursor: pointer;" onclick="userApp.showView('history')">
+                <span>📋 Service History</span>
+                <span>→</span>
+              </div>
+              <div style="padding: 12px 0; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; cursor: pointer;">
+                <span>📍 Saved Addresses (Hostel Block B)</span>
+                <span>→</span>
+              </div>
+              <div style="padding: 12px 0; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; cursor: pointer;">
+                <span>💳 Payment Methods</span>
+                <span>→</span>
+              </div>
+              <div style="padding: 12px 0; display: flex; justify-content: space-between; cursor: pointer;">
+                <span>🛡️ Help &amp; Support</span>
+                <span>→</span>
+              </div>
+            </div>
+
+            <button class="btn-secondary" onclick="userApp.logout()" style="color: #C62828; border-color: #FFCDD2; margin-top: auto;">
+              Logout
+            </button>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/socket.js"></script>
+  <script src="/js/user_app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.userApp = new UserApp();
+      window.userApp.init();
+    });
+  </script>
+</body>
+</html>

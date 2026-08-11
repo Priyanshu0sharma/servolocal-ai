@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AETHERION - Customer Web Portal</title>
+  <link rel="stylesheet" href="/css/theme.css">
+  <link rel="stylesheet" href="/css/user_desktop.css">
+</head>
+<body>
+
+  <div class="user-desktop-layout">
+    
+    <!-- Top Navigation Bar -->
+    <header class="desktop-navbar">
+      <div style="display: flex; align-items: center; gap: 24px;">
+        <a href="/user-desktop" class="nav-brand-group">
+          <div style="width: 38px; height: 38px; background-color: var(--primary-dark-green); color: white; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold;">⬡</div>
+          <div>
+            <h2 style="font-size: 18px; font-weight: 800; color: var(--primary-dark-green); margin: 0; letter-spacing: 0.05em;">AETHERION</h2>
+            <span style="font-size: 10px; color: var(--text-secondary);">Customer Portal</span>
+          </div>
+        </a>
+
+        <div class="location-selector">
+          <span>📍</span>
+          <span>Vaishali Nagar, Jaipur</span>
+          <span style="font-size: 10px;">▾</span>
+        </div>
+      </div>
+
+      <nav class="nav-center-links">
+        <a href="#how-it-works" class="nav-link-item">⚡ How It Works</a>
+        <a href="#services-grid" class="nav-link-item active">Services</a>
+        <a href="#ai-diagnose" class="nav-link-item">AI Diagnostics</a>
+        <a href="#active-service" class="nav-link-item">Live Tracker</a>
+        <a href="#technicians-section" class="nav-link-item">Verified Technicians</a>
+      </nav>
+
+      <div class="nav-user-controls">
+        <div style="display: flex; align-items: center; gap: 10px; cursor: pointer;">
+          <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--accent-brown);" alt="Priyanshu">
+          <div>
+            <div style="font-size: 13px; font-weight: 700; color: var(--primary-dark-green);">Priyanshu 👋</div>
+            <div style="font-size: 11px; color: var(--text-secondary);">+91 98765 12345</div>
+          </div>
+        </div>
+
+        <a href="/" class="btn btn-sm btn-outline">🖥️ Hub View</a>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="desktop-container">
+      
+      <!-- Hero Section: Problem Reporter & Active Service Radar -->
+      <div class="hero-portal-grid">
+        
+        <!-- Left: AI Diagnosis Box -->
+        <div class="ai-diagnosis-hero-card" id="ai-diagnose">
+          <h1 class="hero-header-title">Need a Quick Home Repair?<br><span style="color: var(--accent-brown);">Let AI Diagnose the Issue.</span></h1>
+          <p class="hero-header-sub">Upload a photo/video or describe the symptoms. Our multi-modal AI engine pinpoints the failure cause, estimated parts, and connects you with top-rated local experts.</p>
+
+          <div class="desktop-input-group">
+            <label class="desktop-input-label">Describe the Issue</label>
+            <textarea id="desktop-desc-input" class="desktop-textarea" rows="3" placeholder="e.g. AC cooling nahi kar raha aur outdoor unit se unusual sound aa rahi hai...">AC cooling nahi kar raha aur outdoor unit se unusual sound aa rahi hai.</textarea>
+          </div>
+
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;">
+            <button class="btn btn-sm btn-soft preset-btn" data-desc="AC cooling nahi kar raha aur outdoor unit se unusual sound aa rahi hai.">❄️ AC Cooling Issue</button>
+            <button class="btn btn-sm btn-soft preset-btn" data-desc="Refrigerator defrost nahi ho raha, baraf jam gayi hai.">🧊 Refrigerator Defrost</button>
+            <button class="btn btn-sm btn-soft preset-btn" data-desc="Washing machine drum spin nahi kar raha aur aawaz aa rahi hai.">🧺 Washing Machine Drum</button>
+            <button class="btn btn-sm btn-soft preset-btn" data-desc="Water pump motor humming but not rotating.">⚡ Water Pump Motor</button>
+          </div>
+
+          <!-- Photo/Video Dropzone -->
+          <div class="upload-dropzone" id="desktop-upload-dropzone">
+            <input type="file" id="desktop-file-input" style="display: none;" accept="image/*,video/*">
+            <div style="font-size: 28px; margin-bottom: 4px;">📷</div>
+            <div style="font-size: 13px; font-weight: 700; color: var(--primary-dark-green);" id="upload-status-text">Click or Drag Image/Video of Damaged Appliance</div>
+            <span style="font-size: 11px; color: var(--text-muted);">Supports JPG, PNG, MP4 up to 25MB</span>
+          </div>
+
+          <button class="btn btn-block btn-primary" id="btn-desktop-diag" style="margin-top: 18px; padding: 14px; font-size: 15px;">
+            ⚡ Run Multi-Modal AI Diagnosis
+          </button>
+
+          <!-- Loader -->
+          <div id="desktop-diag-loader" style="display: none; text-align: center; padding: 24px;">
+            <div style="font-size: 32px; animation: spin 1s infinite linear;">⚙️</div>
+            <p style="font-size: 14px; font-weight: 700; color: var(--primary-dark-green); margin-top: 8px;">AI Neural Analyzer Running...</p>
+            <span style="font-size: 12px; color: var(--text-secondary);">Synthesizing failure modes, parts catalog &amp; cost ranges</span>
+          </div>
+
+          <!-- Diagnostic Results Box -->
+          <div class="ai-desktop-result-panel" id="desktop-ai-result-box">
+            <div class="ai-detected-banner">
+              <h3 id="res-issue-title" style="font-size: 18px; font-weight: 800; color: var(--primary-dark-green);">❄️ AC Cooling Failure</h3>
+              <span class="badge badge-green" id="res-conf-badge">92% Confidence</span>
+            </div>
+
+            <div class="ai-meta-grid">
+              <div style="background: white; padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+                <div style="font-size: 12px; font-weight: 700; color: var(--primary-dark-green); margin-bottom: 6px;">Possible Causes</div>
+                <ul id="res-causes-list" style="font-size: 12px; color: var(--text-secondary); padding-left: 16px; line-height: 1.4;">
+                  <li>Refrigerant issue</li>
+                  <li>Compressor overload</li>
+                  <li>Filter blockage</li>
+                </ul>
+              </div>
+
+              <div style="background: white; padding: 14px; border-radius: var(--radius-md); border: 1px solid var(--border-light);">
+                <div style="font-size: 12px; font-weight: 700; color: var(--primary-dark-green); margin-bottom: 6px;">Required Parts</div>
+                <div id="res-parts-chips">
+                  <span class="badge badge-brown">Refrigerant</span>
+                  <span class="badge badge-brown">Filter</span>
+                  <span class="badge badge-brown">Relay</span>
+                </div>
+                <div style="margin-top: 10px;">
+                  <span class="badge badge-red" id="res-sev-badge">Severity: HIGH</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; background: white; padding: 14px 18px; border-radius: var(--radius-md); border: 1px solid rgba(123, 75, 42, 0.2);">
+              <div>
+                <div style="font-size: 11px; color: var(--text-secondary);">Estimated Cost Range</div>
+                <div id="res-cost-val" style="font-size: 20px; font-weight: 800; color: var(--primary-dark-green);">₹1,200 – ₹1,800</div>
+              </div>
+              <a href="#technicians-section" class="btn btn-brown">Find Technician ↓</a>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Active Service Live Radar -->
+        <div class="active-service-desktop-card" id="active-service">
+          <div style="font-size: 14px; font-weight: 700; color: var(--primary-dark-green); margin-bottom: 12px;">Active Service Command Radar</div>
+          <div id="desktop-active-job-container">
+            <!-- Dynamic Active Job Injected by JS -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Service Categories Grid -->
+      <section id="services-grid">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
+          <div>
+            <h2 style="font-size: 20px; font-weight: 800; color: var(--primary-dark-green);">Popular Repair Categories</h2>
+            <p style="font-size: 13px; color: var(--text-secondary);">Instant doorstep inspection by certified background-verified technicians</p>
+          </div>
+        </div>
+
+        <div class="categories-desktop-grid">
+          <div class="category-desktop-card" onclick="document.getElementById('desktop-desc-input').value='AC cooling nahi kar raha'; window.userDesktopApp.handleRunDiagnosis();">
+            <div class="category-icon-large">❄️</div>
+            <div class="category-name-desktop">AC Repair</div>
+            <div class="category-price-desktop">Starts ₹500</div>
+          </div>
+
+          <div class="category-desktop-card" onclick="document.getElementById('desktop-desc-input').value='Refrigerator cooling issue'; window.userDesktopApp.handleRunDiagnosis();">
+            <div class="category-icon-large">🧊</div>
+            <div class="category-name-desktop">Refrigerator</div>
+            <div class="category-price-desktop">Starts ₹450</div>
+          </div>
+
+          <div class="category-desktop-card" onclick="document.getElementById('desktop-desc-input').value='Washing machine drum spin nahi kar raha'; window.userDesktopApp.handleRunDiagnosis();">
+            <div class="category-icon-large">🧺</div>
+            <div class="category-name-desktop">Washing Machine</div>
+            <div class="category-price-desktop">Starts ₹450</div>
+          </div>
+
+          <div class="category-desktop-card" onclick="document.getElementById('desktop-desc-input').value='Water pump motor check'; window.userDesktopApp.handleRunDiagnosis();">
+            <div class="category-icon-large">⚡</div>
+            <div class="category-name-desktop">Motor Repair</div>
+            <div class="category-price-desktop">Starts ₹400</div>
+          </div>
+
+          <div class="category-desktop-card" onclick="document.getElementById('desktop-desc-input').value='Short circuit in main board'; window.userDesktopApp.handleRunDiagnosis();">
+            <div class="category-icon-large">🔌</div>
+            <div class="category-name-desktop">Electrical</div>
+            <div class="category-price-desktop">Starts ₹350</div>
+          </div>
+
+          <div class="category-desktop-card" onclick="document.getElementById('desktop-desc-input').value='Pipe leakage in bathroom'; window.userDesktopApp.handleRunDiagnosis();">
+            <div class="category-icon-large">🚰</div>
+            <div class="category-name-desktop">Plumbing</div>
+            <div class="category-price-desktop">Starts ₹350</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW AETHERION WORKS SECTION (Exact 8-Step Flow, One-Line Diagram & USP) -->
+      <section id="how-it-works" class="how-it-works-section">
+        <div style="text-align: center; margin-bottom: 24px;">
+          <span class="badge badge-brown" style="font-size: 11px; padding: 6px 14px; font-weight: 800; letter-spacing: 0.08em;">END-TO-END WORKFLOW</span>
+          <h2 style="font-size: 26px; font-weight: 900; color: var(--primary-dark-green); margin: 8px 0 4px;">HOW AETHERION WORKS</h2>
+          <p style="font-size: 14px; color: var(--text-secondary);">Connecting users directly to verified technicians through instant multi-modal AI diagnosis</p>
+        </div>
+
+        <!-- One-Line Flow Diagram -->
+        <div class="flow-diagram-banner">
+          <div style="display: flex; align-items: center; justify-content: space-between;">
+            <span style="font-size: 12px; font-weight: 800; color: #E0A96D; letter-spacing: 0.08em;">⚡ ONE-LINE FLOW DIAGRAM</span>
+            <span style="font-size: 11px; color: rgba(255,255,255,0.7);">Full Lifecycle Flow</span>
+          </div>
+          <div class="flow-diagram-pills">
+            <div class="flow-pill-item">📷 Capture Issue</div>
+            <span class="flow-arrow-sep">→</span>
+            <div class="flow-pill-item">🤖 AI Diagnosis</div>
+            <span class="flow-arrow-sep">→</span>
+            <div class="flow-pill-item">📍 Nearby Matching</div>
+            <span class="flow-arrow-sep">→</span>
+            <div class="flow-pill-item">📲 Technician Request</div>
+            <span class="flow-arrow-sep">→</span>
+            <div class="flow-pill-item">🔧 Repair</div>
+            <span class="flow-arrow-sep">→</span>
+            <div class="flow-pill-item">📸 Proof</div>
+            <span class="flow-arrow-sep">→</span>
+            <div class="flow-pill-item">💳 Payment</div>
+            <span class="flow-arrow-sep">→</span>
+            <div class="flow-pill-item">⭐ Feedback</div>
+          </div>
+        </div>
+
+        <!-- Main USP Box -->
+        <div class="usp-quote-box">
+          <span class="usp-badge-tag">MAIN USP</span>
+          <div class="usp-quote-text">
+            “User sirf problem ki photo/video bhejta hai — Aetherion AI diagnosis se lekar nearby verified technician dispatch aur repair completion tak poora workflow connect karta hai.”
+          </div>
+        </div>
+
+        <!-- 8 Detailed Steps Grid -->
+        <div class="steps-8-grid">
+          <!-- Step 1 -->
+          <div class="step-8-card">
+            <div class="step-8-header">
+              <div class="step-8-num">1</div>
+              <div class="step-8-title">User Reports Issue</div>
+            </div>
+            <p class="step-8-desc">User app se <b>problem ki photo/video capture</b> karta hai, issue describe karta hai aur location share karta hai.</p>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="step-8-card">
+            <div class="step-8-header">
+              <div class="step-8-num">2</div>
+              <div class="step-8-title">AI Analyses the Problem</div>
+            </div>
+            <p class="step-8-desc">AI uploaded image/video ko analyse karke <b>problem type, severity, possible cause, required parts aur estimated repair cost</b> identify karta hai.</p>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="step-8-card">
+            <div class="step-8-header">
+              <div class="step-8-num">3</div>
+              <div class="step-8-title">Smart Technician Matching</div>
+            </div>
+            <p class="step-8-desc">System user ki location ke basis par <b>nearby available &amp; verified technicians</b> ko identify karta hai.</p>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="step-8-card">
+            <div class="step-8-header">
+              <div class="step-8-num">4</div>
+              <div class="step-8-title">Request is Dispatched</div>
+            </div>
+            <p class="step-8-desc">Nearby technicians ko <b>service request + problem details + AI diagnosis + estimated cost</b> milta hai.</p>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="step-8-card">
+            <div class="step-8-header">
+              <div class="step-8-num">5</div>
+              <div class="step-8-title">Technician Accepts &amp; Reaches</div>
+            </div>
+            <p class="step-8-desc">Technician request accept karta hai aur user ko <b>live status / location updates</b> milte hain.</p>
+          </div>
+
+          <!-- Step 6 -->
+          <div class="step-8-card">
+            <div class="step-8-header">
+              <div class="step-8-num">6</div>
+              <div class="step-8-title">Repair &amp; Status Updates</div>
+            </div>
+            <p class="step-8-desc">Technician <b>Arrived → Inspection → Repairing → Testing</b> status update karta hai.</p>
+          </div>
+
+          <!-- Step 7 -->
+          <div class="step-8-card">
+            <div class="step-8-header">
+              <div class="step-8-num">7</div>
+              <div class="step-8-title">Completion &amp; Proof</div>
+            </div>
+            <p class="step-8-desc">Repair complete hone par technician <b>before/after photos + parts used + final cost</b> submit karta hai.</p>
+          </div>
+
+          <!-- Step 8 -->
+          <div class="step-8-card">
+            <div class="step-8-header">
+              <div class="step-8-num">8</div>
+              <div class="step-8-title">Payment &amp; Feedback</div>
+            </div>
+            <p class="step-8-desc">User payment complete karta hai aur <b>rating + feedback</b> deta hai.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Nearby Verified Technicians Section -->
+      <section id="technicians-section">
+        <div style="margin-bottom: 18px;">
+          <h2 style="font-size: 20px; font-weight: 800; color: var(--primary-dark-green);">Recommended Technicians Nearby</h2>
+          <p style="font-size: 13px; color: var(--text-secondary);">Filtered automatically by proximity, ratings, skill match, and live availability</p>
+        </div>
+
+        <div class="technicians-desktop-grid" id="desktop-technicians-grid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/socket.js"></script>
+  <script src="/js/user_desktop.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      window.userDesktopApp.init();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+/* ==========================================================================
+   AETHERION - Admin Dashboard Styles
+   Matches Exact Laptop Admin Dashboard Mockup from Screenshot
+   Color Palette:
+   - Dark Green: #1B4332
+   - Brown: #7B4B2A
+   - Creme: #F5EEE6
+   - Soft Beige: #FBF6EF
+   - Light Brown: #C49A6C
+   ========================================================================== */
+
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-soft-beige);
+}
+
+/* ==========================================================================
+   Dark Green Sidebar
+   ========================================================================== */
+.admin-sidebar {
+  width: 240px;
+  background-color: var(--primary-dark-green);
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  flex-shrink: 0;
+}
+
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px 28px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 20px;
+}
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #FFFFFF;
+}
+.brand-text h2 {
+  font-size: 16px;
+  font-weight: 800;
+  color: #FFFFFF;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+.brand-text span {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.02em;
+  display: block;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 14px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.sidebar-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+.sidebar-link.active {
+  background-color: rgba(123, 75, 42, 0.5);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+.sidebar-link svg {
+  width: 18px;
+  height: 18px;
+  opacity: 0.9;
+}
+
+.sidebar-footer {
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  background: transparent;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: var(--radius-md);
+  width: 100%;
+}
+.logout-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   Admin Main Content Area
+   ========================================================================== */
+.admin-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  max-height: 100vh;
+}
+
+/* Top Header Bar */
+.admin-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 28px;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid var(--border-light);
+}
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--bg-soft-beige);
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-light);
+  width: 320px;
+}
+.search-box input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 13px;
+  width: 100%;
+  color: var(--text-primary);
+}
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.admin-user-pill {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.admin-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.admin-user-pill span {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-dark-green);
+}
+
+/* Dashboard Body Container */
+.admin-content {
+  padding: 24px 28px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 5 Metrics Cards Grid */
+.metrics-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+}
+.metric-card {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 18px 16px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.metric-title {
+  font-size: 12px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.metric-value {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--primary-dark-green);
+  line-height: 1.2;
+}
+.metric-growth {
+  font-size: 11px;
+  color: #2E7D32;
+  font-weight: 600;
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+.metric-icon-box {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background-color: var(--bg-soft-beige);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary-dark-green);
+  font-size: 16px;
+}
+
+/* Row 2: Chart & Recent Jobs Table */
+.dashboard-grid-row-2 {
+  display: grid;
+  grid-template-columns: 4fr 5fr;
+  gap: 20px;
+}
+
+.admin-card {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+}
+.admin-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.admin-card-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary-dark-green);
+}
+.chart-legend {
+  display: flex;
+  gap: 14px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.legend-color-box {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+}
+
+/* SVG Chart Container */
+.chart-container {
+  height: 200px;
+  width: 100%;
+  position: relative;
+}
+
+/* Data Table */
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.admin-table th {
+  text-align: left;
+  padding: 10px 12px;
+  color: var(--text-secondary);
+  font-weight: 600;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.admin-table td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-light);
+  color: var(--text-primary);
+}
+.admin-table tr:last-child td {
+  border-bottom: none;
+}
+.table-job-code {
+  font-weight: 700;
+  color: var(--accent-brown);
+}
+.status-pill-table {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+}
+.status-on-the-way {
+  background-color: #E8F5E9;
+  color: #1B4332;
+}
+.status-repairing {
+  background-color: #FFF3E0;
+  color: #E65100;
+}
+.status-completed {
+  background-color: #E0F2F1;
+  color: #00695C;
+}
+
+/* Row 3: Top Technicians, Categories Donut, Recent Reviews */
+.dashboard-grid-row-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.tech-list-compact {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.tech-row-compact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.tech-row-compact-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tech-avatar-mini {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.tech-name-mini {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.tech-rating-mini {
+  font-size: 11px;
+  color: #D97706;
+  font-weight: 600;
+}
+
+/* Donut Chart & Category Legend */
+.donut-section {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.donut-svg-box {
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+}
+.category-legend-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.category-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* Recent Reviews Feed */
+.review-item-compact {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+.review-item-compact:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+.review-text-compact {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+@media (max-width: 1200px) {
+  .metrics-row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .dashboard-grid-row-2,
+  .dashboard-grid-row-3 {
+    grid-template-columns: 1fr;
+  }
+}

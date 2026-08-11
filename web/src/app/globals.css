@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-cream: #F5EEE6;
+    --bg-light-cream: #FFF8F1;
+    --bg-soft-beige: #F8F6F0;
+    --bg-card: #FFFFFF;
+
+    --green-dark: #1B4332;
+    --green-dark-hover: #143527;
+    --green-medium: #2D5A43;
+    --green-muted: #4C6B5D;
+    --green-light: #EBF2EE;
+
+    --brown-dark: #4A2B15;
+    --brown-accent: #7B4B2A;
+    --brown-hover: #633C20;
+    --brown-light: #F4EAE2;
+
+    --blue-muted: #2C4C66;
+    --blue-accent: #3B82F6;
+    --blue-light: #EBF1F5;
+
+    --text-main: #1C2520;
+    --text-muted: #5D6D64;
+    --text-light: #8E9E95;
+
+    --border-light: rgba(27, 67, 50, 0.12);
+    --border-medium: rgba(27, 67, 50, 0.22);
+  }
+
+  body {
+    background-color: var(--bg-soft-beige);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(27, 67, 50, 0.25);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(27, 67, 50, 0.45);
+}
+
+/* Interactive Click / Pressed feedback */
+.btn-tactile {
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+.btn-tactile:active {
+  transform: scale(0.96);
+  filter: brightness(0.92);
+}
+
+/* Radar pulse animation */
+@keyframes radar-pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+.animate-radar {
+  animation: radar-pulse 2.2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* Shimmer animation */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}

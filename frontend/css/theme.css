@@ -1,0 +1,239 @@
+/* ==========================================================================
+   AETHERION / ServoLocal - Core Theme & Design System
+   Exact Color Palette:
+   - Dark Green: #1B4332
+   - Brown: #7B4B2A
+   - Creme: #F5EEE6
+   - Light Cream: #FFF8F1
+   - Muted Green: #4C6B5D
+   - Soft Beige: #FBF6EF
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --primary-dark-green: #1B4332;
+  --primary-dark-green-hover: #143527;
+  --accent-brown: #7B4B2A;
+  --accent-brown-hover: #633c20;
+  --accent-brown-light: #F4EAE2;
+  --bg-creme: #F5EEE6;
+  --bg-light-cream: #FFF8F1;
+  --bg-soft-beige: #FBF6EF;
+  --muted-green: #4C6B5D;
+  --muted-green-light: #EBF2EE;
+  
+  --text-primary: #1C2520;
+  --text-secondary: #5D6D64;
+  --text-muted: #8E9E95;
+  --text-white: #FFFFFF;
+
+  --border-light: rgba(27, 67, 50, 0.08);
+  --border-medium: rgba(27, 67, 50, 0.15);
+  
+  --shadow-sm: 0 2px 8px rgba(27, 67, 50, 0.05);
+  --shadow-md: 0 6px 18px rgba(27, 67, 50, 0.08);
+  --shadow-lg: 0 12px 32px rgba(27, 67, 50, 0.12);
+  --shadow-float: 0 20px 40px rgba(0, 0, 0, 0.15);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-soft-beige);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Typography Helpers */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--primary-dark-green);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background-color: var(--primary-dark-green);
+  color: var(--text-white);
+}
+.btn-primary:hover {
+  background-color: var(--primary-dark-green-hover);
+  box-shadow: 0 4px 12px rgba(27, 67, 50, 0.25);
+}
+
+.btn-brown {
+  background-color: var(--accent-brown);
+  color: var(--text-white);
+}
+.btn-brown:hover {
+  background-color: var(--accent-brown-hover);
+  box-shadow: 0 4px 12px rgba(123, 75, 42, 0.25);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1.5px solid var(--border-medium);
+  color: var(--primary-dark-green);
+}
+.btn-outline:hover {
+  background-color: var(--muted-green-light);
+  border-color: var(--primary-dark-green);
+}
+
+.btn-soft {
+  background-color: var(--accent-brown-light);
+  color: var(--accent-brown);
+}
+.btn-soft:hover {
+  background-color: #ebdcd1;
+}
+
+.btn-sm {
+  padding: 8px 14px;
+  font-size: 13px;
+  border-radius: var(--radius-sm);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* Cards & Surfaces */
+.card {
+  background-color: #FFFFFF;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card-creme {
+  background-color: var(--bg-creme);
+}
+
+.card-light-cream {
+  background-color: var(--bg-light-cream);
+}
+
+/* Status Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-green {
+  background-color: #E8F5E9;
+  color: #1B4332;
+}
+
+.badge-brown {
+  background-color: #F8EFEA;
+  color: #7B4B2A;
+}
+
+.badge-amber {
+  background-color: #FFF8E1;
+  color: #B78103;
+}
+
+.badge-blue {
+  background-color: #E3F2FD;
+  color: #0D47A1;
+}
+
+.badge-red {
+  background-color: #FFEBEE;
+  color: #C62828;
+}
+
+/* Pulsing Status Dot */
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #2E7D32;
+  position: relative;
+}
+.pulse-dot::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(46, 125, 50, 0.4);
+  animation: pulse-ring 1.8s infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  70% { transform: scale(1.8); opacity: 0; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(27, 67, 50, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(27, 67, 50, 0.4);
+}

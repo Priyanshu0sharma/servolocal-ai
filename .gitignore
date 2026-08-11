@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Database files
+*.db
+*.sqlite3
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+
+# Virtual Environments
+venv/
+env/
+ENV/
+.venv/
+
+# Uploads and temporary media (keep folder structure via .gitkeep)
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/sample_assets/*
+!backend/sample_assets/.gitkeep
+
+# Flutter & Mobile Build Artifacts
+mobile/build/
+mobile/.dart_tool/
+mobile/.idea/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/*.iml
+mobile/android/.gradle/
+mobile/android/local.properties
+
+# Android / iOS Release Binaries
+*.apk
+*.aab
+*.ipa
+
+# OS Generated
+.DS_Store
+Thumbs.db
