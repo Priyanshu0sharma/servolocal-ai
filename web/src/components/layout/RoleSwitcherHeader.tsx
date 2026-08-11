@@ -89,7 +89,21 @@ export const RoleSwitcherHeader: React.FC = () => {
           <RefreshCw className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">Reset</span>
         </button>
+
+        {/* Top-Right Executive Admin Panel Shortcut */}
+        <a
+          href="http://localhost:8080/admin"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-500/30 transition-all transform hover:scale-105 border border-emerald-300/30"
+          title="Open Full Desktop Executive Admin Panel"
+        >
+          <ShieldCheck className="w-4 h-4 text-emerald-100" />
+          <span>Admin Command</span>
+          <ExternalLink className="w-3 h-3 text-emerald-200 ml-0.5" />
+        </a>
       </div>
     </header>
   );
 };
+
