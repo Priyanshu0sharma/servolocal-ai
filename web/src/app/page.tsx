@@ -17,6 +17,7 @@ import { Step5RepairProgressScreen } from '../components/steps/Step5RepairProgre
 import { Step6CompletionFeedbackScreen } from '../components/steps/Step6CompletionFeedbackScreen';
 
 import { TechDashboard } from '../components/technician/TechDashboard';
+import { AdminDashboardView } from '../components/admin/AdminDashboardView';
 
 function MainPresentationShell() {
   const { currentStep, activeRole } = usePrototype();
@@ -41,6 +42,18 @@ function MainPresentationShell() {
         return <LandingPortalScreen />;
     }
   };
+
+  if (activeRole === 'admin') {
+    return (
+      <div className="flex flex-col h-screen w-screen bg-[#0F172A] overflow-hidden">
+        <RoleSwitcherHeader />
+        <RealtimeNotification />
+        <div className="flex-1 overflow-hidden">
+          <AdminDashboardView />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-screen w-screen bg-[#F8F6F0] overflow-hidden">
@@ -90,6 +103,7 @@ function MainPresentationShell() {
     </div>
   );
 }
+
 
 export default function Page() {
   return (

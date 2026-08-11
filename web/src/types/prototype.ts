@@ -1,6 +1,7 @@
 export type CoreStepId = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
-export type UserRole = 'user' | 'technician' | 'dual';
+export type UserRole = 'user' | 'technician' | 'dual' | 'admin';
+
 
 export interface PitchDeckStep {
   id: CoreStepId;

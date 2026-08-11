@@ -67,6 +67,19 @@ export const RoleSwitcherHeader: React.FC = () => {
           <Layers className="w-3.5 h-3.5" />
           <span>Dual Split</span>
         </button>
+
+        <button
+          onClick={() => setActiveRole('admin')}
+          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all btn-tactile ${
+            activeRole === 'admin'
+              ? 'bg-emerald-600 text-white shadow-md font-bold'
+              : 'text-emerald-300 hover:text-white hover:bg-emerald-800/60'
+          }`}
+          title="Open Full Desktop Executive Admin Panel"
+        >
+          <ShieldCheck className="w-3.5 h-3.5 text-emerald-300" />
+          <span>Admin Command</span>
+        </button>
       </div>
 
       {/* Right Controls: Realtime Sync Status & Reset */}
@@ -90,20 +103,18 @@ export const RoleSwitcherHeader: React.FC = () => {
           <span className="hidden sm:inline">Reset</span>
         </button>
 
-        {/* Top-Right Executive Admin Panel Shortcut */}
-        <a
-          href="http://localhost:8080/admin"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white text-xs font-bold shadow-lg shadow-emerald-500/30 transition-all transform hover:scale-105 border border-emerald-300/30"
-          title="Open Full Desktop Executive Admin Panel"
+        {/* Executive Admin Panel Switcher */}
+        <button
+          onClick={() => setActiveRole('admin')}
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-white text-xs font-extrabold shadow-lg shadow-emerald-500/30 transition-all transform hover:scale-105 border border-emerald-300/30"
+          title="Open Executive Admin Dashboard"
         >
           <ShieldCheck className="w-4 h-4 text-emerald-100" />
-          <span>Admin Command</span>
-          <ExternalLink className="w-3 h-3 text-emerald-200 ml-0.5" />
-        </a>
+          <span className="hidden sm:inline">Admin Panel</span>
+        </button>
       </div>
     </header>
   );
 };
+
 
