@@ -158,7 +158,7 @@
       width: 100vw;
     }
 
-    /* LEFT PANEL: Core Steps & Controller */
+    /* LEFT PANEL: Core Steps Navigation */
     .left-panel {
       width: 280px;
       background: #FFFFFF;
@@ -264,13 +264,15 @@
       max-width: 1000px;
     }
 
+    /* Large Smartphone Chassis */
     .phone-container {
       position: relative;
-      width: 375px;
-      height: 760px;
-      background: #18221D;
-      border-radius: 46px;
-      padding: 9px;
+      width: 410px;
+      height: 800px;
+      max-height: calc(100vh - 80px);
+      background: #141C18;
+      border-radius: 50px;
+      padding: 10px;
       box-shadow: 
         0 24px 60px rgba(0, 0, 0, 0.25),
         0 0 0 2px rgba(255, 255, 255, 0.2),
@@ -285,7 +287,7 @@
       top: 16px;
       left: 50%;
       transform: translateX(-50%);
-      width: 100px;
+      width: 110px;
       height: 22px;
       background: #000000;
       border-radius: 12px;
@@ -296,16 +298,157 @@
       padding: 0 10px;
     }
 
+    .phone-top-control {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 60;
+      background: rgba(0, 0, 0, 0.7);
+      color: #FFFFFF;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+    }
+
     .phone-screen {
       width: 100%;
       height: 100%;
       background: #F8F6F0;
-      border-radius: 38px;
+      border-radius: 40px;
       overflow: hidden;
       position: relative;
     }
 
-    .phone-iframe {
+    /* Landing Screen inside Phone Frame */
+    .mobile-login-view {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 48px 24px 24px;
+      background: linear-gradient(180deg, #FBF8F3 0%, #F3EEE7 100%);
+      text-align: center;
+    }
+
+    .login-brand-icon {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--primary-dark), #2D6A4F);
+      color: #FFFFFF;
+      font-size: 30px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 12px;
+      box-shadow: 0 12px 24px rgba(27, 67, 50, 0.2);
+    }
+
+    .login-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 4px;
+      letter-spacing: -0.02em;
+    }
+
+    .login-sub {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      max-width: 260px;
+      margin: 0 auto;
+    }
+
+    .role-selection-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: auto 0;
+    }
+
+    .role-btn-card {
+      background: #FFFFFF;
+      border: 2px solid rgba(27, 67, 50, 0.1);
+      border-radius: 18px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    }
+
+    .role-btn-card:hover {
+      border-color: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(27, 67, 50, 0.12);
+    }
+
+    .role-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+    }
+
+    .role-icon.user {
+      background: #F4EAE2;
+      color: var(--accent-brown);
+    }
+
+    .role-icon.tech {
+      background: #E8F2EC;
+      color: var(--primary-dark);
+    }
+
+    .role-info h4 {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--primary-dark);
+      margin-bottom: 2px;
+    }
+
+    .role-info p {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.3;
+    }
+
+    .role-arrow {
+      font-size: 16px;
+      color: var(--primary-dark);
+      font-weight: bold;
+    }
+
+    .login-footer-badge {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-weight: 700;
+    }
+
+    .mobile-app-view {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-app-iframe {
       width: 100%;
       height: 100%;
       border: none;
@@ -439,91 +582,72 @@
   <div class="pitch-deck-layout">
     
     <!-- LEFT PANEL: Core Steps Navigation -->
-    <aside class="left-panel">
+    <aside class="left-panel" id="left-steps-panel">
       <div class="panel-header-title">
-        <span>AETHERION AI WORKFLOW</span>
+        <span id="left-panel-title">AETHERION AI WORKFLOW</span>
         <span id="step-counter-badge">1 / 6</span>
       </div>
 
-      <div class="workflow-steps-list">
-        <div class="step-card active" data-step="1">
-          <span class="step-number">01</span>
-          <div class="step-info">
-            <h4>Issue Upload</h4>
-            <p>Upload photo/video & describe symptoms</p>
-          </div>
-          <span class="step-icon">☁️</span>
-        </div>
-
-        <div class="step-card" data-step="2">
-          <span class="step-number">02</span>
-          <div class="step-info">
-            <h4>AI Diagnosis</h4>
-            <p>Vision scanning & failure detection</p>
-          </div>
-          <span class="step-icon">🧠</span>
-        </div>
-
-        <div class="step-card" data-step="3">
-          <span class="step-number">03</span>
-          <div class="step-info">
-            <h4>Cost & Parts</h4>
-            <p>Predictive parts & transparent cost</p>
-          </div>
-          <span class="step-icon">🧮</span>
-        </div>
-
-        <div class="step-card" data-step="4">
-          <span class="step-number">04</span>
-          <div class="step-info">
-            <h4>Smart Dispatch</h4>
-            <p>Proximity match nearest technician</p>
-          </div>
-          <span class="step-icon">📡</span>
-        </div>
-
-        <div class="step-card" data-step="5">
-          <span class="step-number">05</span>
-          <div class="step-info">
-            <h4>Repair Progress</h4>
-            <p>Live status & repair execution</p>
-          </div>
-          <span class="step-icon">🔧</span>
-        </div>
-
-        <div class="step-card" data-step="6">
-          <span class="step-number">06</span>
-          <div class="step-info">
-            <h4>Completion</h4>
-            <p>Digital proof & payment history</p>
-          </div>
-          <span class="step-icon">✅</span>
-        </div>
+      <div class="workflow-steps-list" id="workflow-steps-container">
+        <!-- Rendered dynamically by JS -->
       </div>
     </aside>
 
-    <!-- CENTER VIEWPORT: Phone Frame(s) -->
+    <!-- CENTER VIEWPORT: Phone Frame -->
     <main class="center-viewport">
       <div class="phone-stage" id="phone-stage">
         
-        <!-- User View Phone Frame -->
+        <!-- Phone Frame Container -->
         <div class="phone-wrapper" id="user-phone-wrapper">
           <div class="phone-label" id="user-phone-title">Customer App (User View)</div>
+          
           <div class="phone-container">
             <div class="phone-notch"></div>
-            <div class="phone-screen">
-              <iframe id="iframe-user" class="phone-iframe" src="/user"></iframe>
-            </div>
-          </div>
-        </div>
+            
+            <button class="phone-top-control" id="btn-switch-account" style="display: none;" title="Portal Home">
+              🔄 Switch Account
+            </button>
 
-        <!-- Tech View Phone Frame (Shown in Dual mode or Tech mode) -->
-        <div class="phone-wrapper" id="tech-phone-wrapper" style="display: none;">
-          <div class="phone-label" style="color: #7B4B2A;">Technician Portal (Tech View)</div>
-          <div class="phone-container">
-            <div class="phone-notch"></div>
             <div class="phone-screen">
-              <iframe id="iframe-tech" class="phone-iframe" src="/technician"></iframe>
+              
+              <!-- State A: Landing Screen inside Mobile (Matching User Screenshot) -->
+              <div class="mobile-login-view" id="mobile-login-screen">
+                <div>
+                  <div class="login-brand-icon">⬡</div>
+                  <h1 class="login-title">AETHERION</h1>
+                  <p class="login-sub">AI-Powered On-Demand Appliance Repair &amp; Service Dispatch</p>
+                </div>
+
+                <div class="role-selection-group">
+                  <div class="role-btn-card" id="btn-login-user">
+                    <div class="role-icon user">👤</div>
+                    <div class="role-info">
+                      <h4>Customer Login</h4>
+                      <p>AI diagnosis, upfront cost &amp; live technician tracking</p>
+                    </div>
+                    <div class="role-arrow">→</div>
+                  </div>
+
+                  <div class="role-btn-card" id="btn-login-tech">
+                    <div class="role-icon tech">👨‍🔧</div>
+                    <div class="role-info">
+                      <h4>Technician Login</h4>
+                      <p>Job dispatch, voice assistant &amp; digital proof upload</p>
+                    </div>
+                    <div class="role-arrow">→</div>
+                  </div>
+                </div>
+
+                <div class="login-footer-badge">
+                  <span class="pulse-dot"></span> Ready for Interactive Prototype Testing
+                </div>
+              </div>
+
+              <!-- State B: Loaded App (iframe) -->
+              <div class="mobile-app-view" id="mobile-app-screen" style="display: none;">
+                <iframe id="mobile-iframe" class="mobile-app-iframe" src="about:blank"></iframe>
+              </div>
+
             </div>
           </div>
         </div>
@@ -534,19 +658,19 @@
     <!-- RIGHT PANEL: Smart Context Panel -->
     <aside class="right-panel">
       <div class="panel-header-title">
-        <span>CONTEXT PANEL</span>
+        <span id="right-panel-title">CONTEXT PANEL</span>
         <span id="step-context-label">STEP 01</span>
       </div>
 
       <div class="context-card">
-        <h5>Aetherion AI Protocol</h5>
+        <h5 id="context-card-1-title">Aetherion AI Protocol</h5>
         <p id="context-protocol-desc">
           User uploads photo/video of faulty equipment (AC, Refrigerator, Washing Machine, Chiller, Motor, etc.) + describes symptoms.
         </p>
       </div>
 
       <div class="context-card">
-        <h5>Engine & Capabilities</h5>
+        <h5>Engine &amp; Capabilities</h5>
         <p id="context-engine-desc">
           Multimodal vision classification engine supports high-resolution equipment photos and MP4 video streams up to 50 MB.
         </p>
@@ -555,7 +679,7 @@
       <div class="context-card">
         <h5>Technical Specs</h5>
         <div class="tech-spec-box" id="context-tech-spec">
-          File dropzone with instant Object URL preview & GPS location pin (19.076° N, 72.877° E).
+          File dropzone with instant Object URL preview &amp; GPS location pin (19.076° N, 72.877° E).
         </div>
       </div>
 
@@ -568,132 +692,110 @@
   </div>
 
   <script>
-    // Context details per step
-    const STEP_CONTEXTS = {
-      1: {
-        label: 'STEP 01',
-        counter: '1 / 6',
-        protocol: 'User selects appliance/machine category (AC, Fridge, Washing Machine, Industrial Chiller, Motors, etc.) and uploads media.',
-        engine: 'Multimodal vision classification supports high-resolution equipment photos & MP4 video streams up to 50 MB.',
-        spec: 'File dropzone with instant Object URL preview & GPS location pin (19.076° N, 72.877° E).'
-      },
-      2: {
-        label: 'STEP 02',
-        counter: '2 / 6',
-        protocol: 'Multimodal AI analyzes visual failure patterns & generates preliminary diagnosis.',
-        engine: 'Computer vision bounding-box scanning & anomaly classification via PyTorch / OpenCV models.',
-        spec: 'BoundingBox [x:120, y:80, w:180, h:160] • Confidence Score: 94.2%'
-      },
-      3: {
-        label: 'STEP 03',
-        counter: '3 / 6',
-        protocol: 'Predictive model calculates required OEM parts, labor hours & transparent total repair cost.',
-        engine: 'Parts inventory matching engine & automated GST invoice generator.',
-        spec: 'Estimated Labor: 1.5 hrs (₹450) + OEM Parts (₹600) + Service Fee (₹150) = Total ₹1,200'
-      },
-      4: {
-        label: 'STEP 04',
-        counter: '4 / 6',
-        protocol: 'Location-based real-time dispatch engine matches nearest verified technician.',
-        engine: 'Haversine distance proximity algorithm & WebSocket broadcast event manager.',
-        spec: 'Matched Tech: Vikram Sharma (1.8 km away) • Response Latency: <120ms'
-      },
-      5: {
-        label: 'STEP 05',
-        counter: '5 / 6',
-        protocol: 'Technician accepts job, navigates to customer site & executes repair with live updates.',
-        engine: 'Real-time state progression (DISPATCHING → ACCEPTED → ON_THE_WAY → ARRIVED → REPAIRING).',
-        spec: 'WebSocket Channel: /ws/job/8801 • Bi-directional Chat & GPS telemetry active.'
-      },
-      6: {
-        label: 'STEP 06',
-        counter: '6 / 6',
-        protocol: 'Digital proof of repair (Before/After photo), payment receipt & technician earnings record.',
-        engine: 'Digital proof hash verification, instant UPI/Bank payout calculator & rating average updater.',
-        spec: 'Proof Verification Hash: #a8f9c2d1 • Tech Payout: ₹1,550.00 (Instant Direct Transfer)'
-      }
-    };
+    const USER_STEPS = [
+      { id: 1, number: '01', title: 'Issue Upload', short: 'Upload photo/video & symptoms', icon: '☁️' },
+      { id: 2, number: '02', title: 'AI Diagnosis', short: 'Vision scanning & failure detection', icon: '🧠' },
+      { id: 3, number: '03', title: 'Cost & Parts', short: 'Predictive parts & transparent cost', icon: '🧮' },
+      { id: 4, number: '04', title: 'Smart Dispatch', short: 'Proximity match 4-5 technicians', icon: '📡' },
+      { id: 5, number: '05', title: 'Repair Progress', short: 'Live status & repair execution', icon: '🔧' },
+      { id: 6, number: '06', title: 'Completion', short: 'Digital proof & service history', icon: '✅' }
+    ];
+
+    const TECH_STEPS = [
+      { id: 1, number: '01', title: 'Dispatch Alert', short: 'Receive emergency job request', icon: '🔔' },
+      { id: 2, number: '02', title: 'Navigation', short: 'GPS turn-by-turn route to site', icon: '🧭' },
+      { id: 3, number: '03', title: 'AI Inspection', short: 'Review AI bounding box report', icon: '📋' },
+      { id: 4, number: '04', title: 'Repair Work', short: 'Execute repair & AI voice notes', icon: '🔧' },
+      { id: 5, number: '05', title: 'Proof Upload', short: 'Upload before/after proof photo', icon: '📷' },
+      { id: 6, number: '06', title: 'Payout & Rating', short: 'Instant UPI payout & view rating', icon: '💳' }
+    ];
 
     let currentStep = 1;
-    let currentRole = 'user'; // 'user', 'tech', 'dual'
+    let currentRole = 'user'; // 'user' or 'tech'
 
-    // DOM Elements
+    const loginScreen = document.getElementById('mobile-login-screen');
+    const appScreen = document.getElementById('mobile-app-screen');
+    const mobileIframe = document.getElementById('mobile-iframe');
+    const btnSwitchAccount = document.getElementById('btn-switch-account');
+    const stepsContainer = document.getElementById('workflow-steps-container');
+    const leftPanelTitle = document.getElementById('left-panel-title');
+    const userPhoneTitle = document.getElementById('user-phone-title');
+
     const tabUser = document.getElementById('tab-role-user');
     const tabTech = document.getElementById('tab-role-tech');
     const tabDual = document.getElementById('tab-role-dual');
-    const userPhoneWrapper = document.getElementById('user-phone-wrapper');
-    const techPhoneWrapper = document.getElementById('tech-phone-wrapper');
-    const stepCards = document.querySelectorAll('.step-card');
 
-    const contextLabel = document.getElementById('step-context-label');
-    const stepCounterBadge = document.getElementById('step-counter-badge');
-    const contextProtocolDesc = document.getElementById('context-protocol-desc');
-    const contextEngineDesc = document.getElementById('context-engine-desc');
-    const contextTechSpec = document.getElementById('context-tech-spec');
+    function renderStepsList() {
+      const steps = currentRole === 'tech' ? TECH_STEPS : USER_STEPS;
+      leftPanelTitle.textContent = currentRole === 'tech' ? 'TECHNICIAN PROTOCOL' : 'AETHERION AI WORKFLOW';
+      
+      stepsContainer.innerHTML = steps.map(s => `
+        <div class="step-card ${s.id === currentStep ? 'active' : ''}" data-step="${s.id}">
+          <span class="step-number">${s.number}</span>
+          <div class="step-info">
+            <h4>${s.title}</h4>
+            <p>${s.short}</p>
+          </div>
+          <span class="step-icon">${s.icon}</span>
+        </div>
+      `).join('');
 
-    const btnPrevStep = document.getElementById('btn-prev-step');
-    const btnNextStep = document.getElementById('btn-next-step');
+      document.querySelectorAll('.step-card').forEach(card => {
+        card.addEventListener('click', () => {
+          setStep(parseInt(card.dataset.step));
+        });
+      });
+    }
 
-    // Switch Role Tabs
-    function setRole(role) {
-      currentRole = role;
-      tabUser.classList.remove('active');
+    function launchUserApp() {
+      currentRole = 'user';
+      tabUser.classList.add('active');
       tabTech.classList.remove('active');
       tabDual.classList.remove('active');
 
-      if (role === 'user') {
-        tabUser.classList.add('active');
-        userPhoneWrapper.style.display = 'block';
-        techPhoneWrapper.style.display = 'none';
-      } else if (role === 'tech') {
-        tabTech.classList.add('active');
-        userPhoneWrapper.style.display = 'none';
-        techPhoneWrapper.style.display = 'block';
-      } else if (role === 'dual') {
-        tabDual.classList.add('active');
-        userPhoneWrapper.style.display = 'block';
-        techPhoneWrapper.style.display = 'block';
-      }
+      loginScreen.style.display = 'none';
+      appScreen.style.display = 'flex';
+      btnSwitchAccount.style.display = 'block';
+      userPhoneTitle.textContent = 'Customer App (User View)';
+      mobileIframe.src = '/user';
+      renderStepsList();
     }
 
-    tabUser.addEventListener('click', () => setRole('user'));
-    tabTech.addEventListener('click', () => setRole('tech'));
-    tabDual.addEventListener('click', () => setRole('dual'));
+    function launchTechApp() {
+      currentRole = 'tech';
+      tabTech.classList.add('active');
+      tabUser.classList.remove('active');
+      tabDual.classList.remove('active');
 
-    // Switch Steps
+      loginScreen.style.display = 'none';
+      appScreen.style.display = 'flex';
+      btnSwitchAccount.style.display = 'block';
+      userPhoneTitle.textContent = 'Technician Portal (Tech View)';
+      mobileIframe.src = '/technician';
+      renderStepsList();
+    }
+
+    function showPortalLanding() {
+      mobileIframe.src = 'about:blank';
+      appScreen.style.display = 'none';
+      btnSwitchAccount.style.display = 'none';
+      loginScreen.style.display = 'flex';
+      userPhoneTitle.textContent = 'Aetherion Service Portal';
+    }
+
+    document.getElementById('btn-login-user').addEventListener('click', launchUserApp);
+    document.getElementById('btn-login-tech').addEventListener('click', launchTechApp);
+    btnSwitchAccount.addEventListener('click', showPortalLanding);
+
+    tabUser.addEventListener('click', launchUserApp);
+    tabTech.addEventListener('click', launchTechApp);
+
     function setStep(stepNum) {
       currentStep = stepNum;
-      stepCards.forEach(card => {
-        if (parseInt(card.dataset.step) === stepNum) {
-          card.classList.add('active');
-        } else {
-          card.classList.remove('active');
-        }
-      });
-
-      const ctx = STEP_CONTEXTS[stepNum];
-      if (ctx) {
-        contextLabel.textContent = ctx.label;
-        stepCounterBadge.textContent = ctx.counter;
-        contextProtocolDesc.textContent = ctx.protocol;
-        contextEngineDesc.textContent = ctx.engine;
-        contextTechSpec.textContent = ctx.spec;
-      }
+      renderStepsList();
     }
 
-    stepCards.forEach(card => {
-      card.addEventListener('click', () => {
-        setStep(parseInt(card.dataset.step));
-      });
-    });
-
-    btnPrevStep.addEventListener('click', () => {
-      if (currentStep > 1) setStep(currentStep - 1);
-    });
-
-    btnNextStep.addEventListener('click', () => {
-      if (currentStep < 6) setStep(currentStep + 1);
-    });
+    renderStepsList();
   </script>
 </body>
 </html>
