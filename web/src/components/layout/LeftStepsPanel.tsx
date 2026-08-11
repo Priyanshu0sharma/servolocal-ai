@@ -29,7 +29,7 @@ export const LeftStepsPanel: React.FC = () => {
   const { currentStep, setCurrentStep, activeRole, setActiveRole } = usePrototype();
 
   return (
-    <aside className="w-full lg:w-72 bg-[#F5EEE6] border-r border-[#1B4332]/15 flex flex-col shrink-0 overflow-hidden">
+    <aside className="hidden lg:flex w-72 bg-[#F5EEE6] border-r border-[#1B4332]/15 flex-col shrink-0 overflow-hidden">
       {/* Workflow Header */}
       <div className="p-4 border-b border-[#1B4332]/15 bg-[#FFF8F1]">
         <div className="flex items-center justify-between">

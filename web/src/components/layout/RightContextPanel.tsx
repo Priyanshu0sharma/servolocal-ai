@@ -31,7 +31,7 @@ export const RightContextPanel: React.FC = () => {
   const stepData = PITCH_DECK_STEPS.find((s) => s.id === currentStep) || PITCH_DECK_STEPS[0];
 
   return (
-    <aside className="w-full lg:w-80 bg-[#FFF8F1] border-l border-[#1B4332]/15 flex flex-col shrink-0 overflow-y-auto">
+    <aside className="hidden xl:flex w-80 bg-[#FFF8F1] border-l border-[#1B4332]/15 flex-col shrink-0 overflow-y-auto">
       {/* Context Header */}
       <div className="p-4 border-b border-[#1B4332]/15 bg-[#F5EEE6]">
         <div className="flex items-center justify-between mb-1">
