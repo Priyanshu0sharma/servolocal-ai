@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'screens/user_app_screen.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const ServoLocalUserApp());
 }

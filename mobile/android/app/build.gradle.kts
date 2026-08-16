@@ -14,9 +14,26 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    buildFeatures {
+        resValues = true
+    }
+
+    flavorDimensions += "app"
+    productFlavors {
+        create("user") {
+            dimension = "app"
+            applicationId = "com.servolocal.user"
+            manifestPlaceholders["appLabel"] = "ServoLocal"
+        }
+        create("partner") {
+            dimension = "app"
+            applicationId = "com.servolocal.partner"
+            manifestPlaceholders["appLabel"] = "ServoLocal Partner"
+        }
+    }
+
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.aetherion.servolocal.aetherion"
+        applicationId = "com.servolocal.app"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

@@ -50,6 +50,8 @@ if (FRONTEND_DIR / "js").exists():
     app.mount("/js", StaticFiles(directory=str(FRONTEND_DIR / "js")), name="js")
 if (FRONTEND_DIR / "assets").exists():
     app.mount("/assets", StaticFiles(directory=str(FRONTEND_DIR / "assets")), name="assets")
+if (FRONTEND_DIR / "_next").exists():
+    app.mount("/_next", StaticFiles(directory=str(FRONTEND_DIR / "_next")), name="next_static")
 
 # WebSocket Endpoint
 @app.websocket("/ws/{client_type}/{client_id}")
@@ -104,6 +106,20 @@ async def download_apk():
     if apk_path.exists():
         return FileResponse(str(apk_path), media_type="application/vnd.android.package-archive", filename="aetherion.apk")
     return {"error": "APK not found"}
+
+@app.get("/servolocal_user.apk")
+async def download_user_apk():
+    apk_path = FRONTEND_DIR / "servolocal_user.apk"
+    if apk_path.exists():
+        return FileResponse(str(apk_path), media_type="application/vnd.android.package-archive", filename="servolocal_user.apk")
+    return {"error": "User APK not found"}
+
+@app.get("/servolocal_technician.apk")
+async def download_tech_apk():
+    apk_path = FRONTEND_DIR / "servolocal_technician.apk"
+    if apk_path.exists():
+        return FileResponse(str(apk_path), media_type="application/vnd.android.package-archive", filename="servolocal_technician.apk")
+    return {"error": "Technician APK not found"}
 
 @app.get("/technician")
 async def serve_tech():

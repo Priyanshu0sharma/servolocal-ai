@@ -14,18 +14,18 @@ export const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   const [authTab, setAuthTab] = useState<'customer' | 'technician' | 'admin'>('customer');
 
   // Customer form
-  const [custName, setCustName] = useState('Alex Mercer');
-  const [custPhone, setCustPhone] = useState('+91 98200 44123');
-  const [custEmail, setCustEmail] = useState('alex.mercer@apexindustrial.com');
+  const [custName, setCustName] = useState('Priyanshu Sharma');
+  const [custPhone, setCustPhone] = useState('+91 98765 12345');
+  const [custEmail, setCustEmail] = useState('priyanshu@user.com');
 
   // Tech Form + Bank Account Details
-  const [techName, setTechName] = useState('Rajesh Kumar');
-  const [techPhone, setTechPhone] = useState('+91 98765 12345');
-  const [techSpeciality, setTechSpeciality] = useState('HVAC & Chiller Specialist');
+  const [techName, setTechName] = useState('Rahul Kumar');
+  const [techPhone, setTechPhone] = useState('+91 98765 43210');
+  const [techSpeciality, setTechSpeciality] = useState('HVAC & Appliance Specialist');
   const [bankName, setBankName] = useState('HDFC Bank');
   const [accountNo, setAccountNo] = useState('918234567890');
   const [ifscCode, setIfscCode] = useState('HDFC0001234');
-  const [upiId, setUpiId] = useState('rajesh@okaxis');
+  const [upiId, setUpiId] = useState('rahul@okaxis');
 
   if (!isOpen) return null;
 

@@ -1,564 +1,150 @@
 /**
- * AETHERION - User Mobile App Controller
- * Full 33-Step Lifecycle with Rich Micro-Interactions & Tactile Feedback
+ * SERVOLOCAL AI - User Mobile App Controller
+ * Full 18-Screen Interactive Flow Controller
  */
 
 class UserApp {
   constructor() {
-    this.userId = 1; // Priyanshu Sharma
-    this.userName = "Priyanshu Sharma";
-    this.userPhone = "+91 98765 43210";
-    this.activeJob = null;
-    this.socket = new SocketClient('user', this.userId);
-    
-    // Booking Form State
-    this.bookingState = {
-      category: "AC / HVAC",
-      equipmentName: "Split AC",
-      brand: "Voltas",
-      model: "183V EY (1.5 Ton)",
-      age: "3 Years",
-      issueDescription: "AC chal raha hai lekin cooling nahi ho rahi aur outdoor unit se noise aa rahi hai.",
-      locationCity: "Vaishali Nagar, Jaipur, Rajasthan",
-      locationBuilding: "Hostel Block B / Flat 304",
-      locationFloor: "3rd Floor, Room 304",
-      locationNotes: "Gate no. 2 se entry karna, opposite cafeteria",
-      photosCount: 3,
-      voiceTranscript: "Bhai AC on hai par hawa bilkul thandi nahi de raha."
-    };
-
-    this.selectedPaymentMethod = 'UPI';
-    this.selectedRating = 5;
-    this.onboardingIndex = 1;
+    this.userId = 1;
+    this.userName = "Arjun Industries";
+    this.userLocation = "Jaipur, Rajasthan";
+    this.currentStepId = 'login';
+    this.currentStepNum = 1;
+    this.viewMode = 'phone'; // 'phone' or 'poster'
     this.isRecordingVoice = false;
+    this.socket = typeof SocketClient !== 'undefined' ? new SocketClient('user', this.userId) : null;
   }
 
   async init() {
-    console.log('🚀 Initializing Complete Aetherion User App...');
+    console.log('🚀 Initializing SERVOLOCAL AI User App (18-Screen Flow)...');
     this.updateClock();
-    setInterval(() => this.updateClock(), 60000);
+    setInterval(() => this.updateClock(), 30000);
 
-    this.socket.connect();
-    this.bindSocketEvents();
-    this.bindDomEvents();
+    if (this.socket) {
+      try {
+        this.socket.connect();
+      } catch (e) {
+        console.log('Socket connect skipped');
+      }
+    }
 
-    // Auto-advance Splash after 1.2s to Onboarding
-    setTimeout(() => {
-      this.showView('onboarding');
-    }, 1200);
-
-    await this.loadActiveJob();
+    this.renderPosterGrid();
+    this.navigateToStep('login', 1);
   }
 
   updateClock() {
     const now = new Date();
     const timeStr = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-    const clockEl = document.getElementById('current-clock-time');
-    if (clockEl) clockEl.textContent = timeStr;
+    const clockEls = document.querySelectorAll('#current-clock-time');
+    clockEls.forEach(el => el.textContent = timeStr);
   }
 
-  showToast(message, icon = '✓') {
-    let toast = document.getElementById('app-mobile-toast');
-    if (!toast) {
-      toast = document.createElement('div');
-      toast.id = 'app-mobile-toast';
-      toast.className = 'mobile-toast';
-      document.querySelector('.mobile-frame').appendChild(toast);
+  switchViewMode(mode) {
+    this.viewMode = mode;
+    const phoneContainer = document.getElementById('phone-frame-container');
+    const posterContainer = document.getElementById('poster-grid-container');
+    const btnPhone = document.getElementById('mode-btn-phone');
+    const btnPoster = document.getElementById('mode-btn-poster');
+
+    if (mode === 'poster') {
+      if (phoneContainer) phoneContainer.style.display = 'none';
+      if (posterContainer) posterContainer.style.display = 'grid';
+      if (btnPhone) btnPhone.classList.remove('active');
+      if (btnPoster) btnPoster.classList.add('active');
+      this.renderPosterGrid();
+    } else {
+      if (phoneContainer) phoneContainer.style.display = 'flex';
+      if (posterContainer) posterContainer.style.display = 'none';
+      if (btnPhone) btnPhone.classList.add('active');
+      if (btnPoster) btnPoster.classList.remove('active');
     }
-    toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
-    toast.classList.add('show');
-    clearTimeout(this.toastTimer);
-    this.toastTimer = setTimeout(() => {
-      toast.classList.remove('show');
-    }, 2200);
   }
 
-  showView(viewId) {
-    console.log(`📱 [UserApp] Navigating to view: ${viewId}`);
-    document.querySelectorAll('.screen-section').forEach(sec => {
+  navigateToStep(stepId, stepNum) {
+    console.log(`📱 [SERVOLOCAL] Navigating to Step ${stepNum}: ${stepId}`);
+    this.currentStepId = stepId;
+    this.currentStepNum = stepNum;
+
+    // Update active pill button
+    document.querySelectorAll('.step-pill').forEach(pill => {
+      if (pill.getAttribute('data-step') === stepId) {
+        pill.classList.add('active');
+        pill.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } else {
+        pill.classList.remove('active');
+      }
+    });
+
+    // Update active section in phone frame
+    document.querySelectorAll('#screens-viewport .screen-section').forEach(sec => {
       sec.classList.remove('active');
     });
 
-    const targetSection = document.getElementById(`view-${viewId}`);
-    if (targetSection) {
-      targetSection.classList.add('active');
-      targetSection.scrollTop = 0;
+    const targetSec = document.getElementById(`view-${stepId}`);
+    if (targetSec) {
+      targetSec.classList.add('active');
+      targetSec.scrollTop = 0;
     }
 
-    // Highlight bottom navigation tabs if applicable
-    document.querySelectorAll('.nav-item').forEach(item => {
-      if (item.getAttribute('data-nav') === viewId) {
-        item.classList.add('active');
-      } else {
-        item.classList.remove('active');
-      }
-    });
-  }
-
-  bindSocketEvents() {
-    this.socket.on('STATUS_UPDATED', (data) => {
-      console.log('⚡ [UserApp] Real-time Status Update received:', data);
-      if (data.job) {
-        this.activeJob = data.job;
-        this.handleStatusProgression(data.job.status);
-      }
-    });
-
-    this.socket.on('PROOF_SUBMITTED', (data) => {
-      console.log('📸 [UserApp] Real-time Proof Submitted:', data);
-      if (data.job) {
-        this.activeJob = data.job;
-        this.showToast('Technician submitted completion proof!', '📸');
-        this.showView('proof-review');
-      }
-    });
-
-    this.socket.on('PAYMENT_SUCCESSFUL', (data) => {
-      if (data.job) {
-        this.activeJob = data.job;
-        this.showToast('Payment successful!', '💳');
-      }
-    });
-  }
-
-  handleStatusProgression(status) {
-    if (status === 'ACCEPTED' || status === 'ON_THE_WAY') {
-      this.showView('live-tracking');
-      this.showToast('Technician is on the way!', '🛵');
-    } else if (status === 'ARRIVED') {
-      this.showToast('Technician arrived at doorstep!', '📍');
-      this.showView('tech-arrived');
-    } else if (status === 'REPAIRING') {
-      this.showToast('Repair in progress...', '🔧');
-      this.showView('repair-progress');
-    } else if (status === 'COMPLETED') {
-      this.showToast('Repair completed by technician!', '✓');
-      this.showView('proof-review');
-    }
-    this.renderActiveJobWidget();
-  }
-
-  bindDomEvents() {
-    // 1. Onboarding Carousel Buttons
-    document.getElementById('btn-skip-onboarding')?.addEventListener('click', () => {
-      this.showToast('Skipped onboarding');
-      this.showView('auth');
-    });
-
-    document.getElementById('btn-next-onboarding')?.addEventListener('click', () => {
-      this.onboardingIndex++;
-      if (this.onboardingIndex > 3) {
-        this.showView('auth');
-      } else {
-        this.updateOnboardingSlide(this.onboardingIndex);
-      }
-    });
-
-    // Carousel dots direct click
-    document.querySelectorAll('.onboarding-dots .dot').forEach((dot, idx) => {
-      dot.addEventListener('click', () => {
-        this.onboardingIndex = idx + 1;
-        this.updateOnboardingSlide(this.onboardingIndex);
-      });
-    });
-
-    // 2. Auth & OTP Flow
-    document.getElementById('btn-send-otp')?.addEventListener('click', () => {
-      const phone = document.getElementById('input-phone').value;
-      document.getElementById('display-otp-phone').textContent = `+91 ${phone}`;
-      document.getElementById('auth-phone-step').style.display = 'none';
-      document.getElementById('auth-otp-step').style.display = 'block';
-      this.showToast('OTP sent: 123456', '🔑');
-      
-      // Auto focus first OTP box
-      const firstOtp = document.querySelector('.otp-box');
-      if (firstOtp) firstOtp.focus();
-    });
-
-    // OTP Input auto-advance
-    const otpInputs = document.querySelectorAll('.otp-box');
-    otpInputs.forEach((input, index) => {
-      input.addEventListener('input', (e) => {
-        if (e.target.value.length === 1 && index < otpInputs.length - 1) {
-          otpInputs[index + 1].focus();
-        }
-      });
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' && !e.target.value && index > 0) {
-          otpInputs[index - 1].focus();
-        }
-      });
-    });
-
-    document.getElementById('btn-verify-otp')?.addEventListener('click', () => {
-      this.showToast('Login Verified Successfully! Welcome Priyanshu', '🎉');
-      this.showView('location-perm');
-    });
-
-    // 3. Location Permission
-    document.getElementById('btn-use-current-location')?.addEventListener('click', () => {
-      this.showToast('Location set to Jaipur, Rajasthan', '📍');
-      this.showView('home');
-    });
-    document.getElementById('btn-enter-location-manual')?.addEventListener('click', () => {
-      this.showToast('Location set manually', '📍');
-      this.showView('home');
-    });
-
-    // 4. Home Screen Actions
-    document.getElementById('home-hero-report-btn')?.addEventListener('click', () => this.showView('select-category'));
-    document.getElementById('home-how-it-works-btn')?.addEventListener('click', () => this.showView('onboarding'));
-
-    // Category Grid click on Home
-    document.querySelectorAll('.category-card').forEach(card => {
-      card.addEventListener('click', () => {
-        document.querySelectorAll('.category-card').forEach(c => c.classList.remove('selected'));
-        card.classList.add('selected');
-        const cat = card.getAttribute('data-cat');
-        this.bookingState.category = cat;
-        this.showToast(`Selected: ${cat}`, '❄️');
-        setTimeout(() => this.showView('select-category'), 150);
-      });
-    });
-
-    // Bottom Navigation with Bounce Animation
-    document.querySelectorAll('.nav-item').forEach(item => {
-      item.addEventListener('click', () => {
-        const nav = item.getAttribute('data-nav');
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        item.classList.add('active');
-
-        if (nav === 'home') this.showView('home');
-        else if (nav === 'services') this.showView('select-category');
-        else if (nav === 'jobs') this.showView('history');
-        else if (nav === 'notifications') this.showView('notifications');
-        else if (nav === 'profile') this.showView('profile');
-      });
-    });
-
-    // 5. Step 1: Category Selection Options
-    document.querySelectorAll('.category-select-option').forEach(opt => {
-      opt.addEventListener('click', () => {
-        document.querySelectorAll('.category-select-option').forEach(o => {
-          o.classList.remove('active');
-          o.querySelector('span[style*="font-weight: bold"]')?.remove();
-        });
-        opt.classList.add('active');
-        opt.insertAdjacentHTML('beforeend', '<span style="color: var(--primary-dark-green); font-weight: bold;">✓</span>');
-        this.bookingState.category = opt.getAttribute('data-category');
-        this.showToast(`Category: ${this.bookingState.category}`);
-      });
-    });
-    document.getElementById('btn-step1-next')?.addEventListener('click', () => this.showView('upload-media'));
-
-    // 6. Step 2: Interactive Angle Tags Toggle
-    document.querySelectorAll('.angle-tags-row .angle-tag').forEach(tag => {
-      tag.addEventListener('click', () => {
-        tag.classList.toggle('active');
-        const text = tag.textContent.replace('✓', '').trim();
-        if (tag.classList.contains('active')) {
-          tag.innerHTML = `✓ ${text}`;
-          this.showToast(`Included: ${text}`);
-        } else {
-          tag.innerHTML = `+ ${text}`;
-        }
-      });
-    });
-
-    // Media upload simulation buttons
-    document.querySelectorAll('#upload-media-box button').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.showToast(`${btn.textContent} captured! Photo added.`, '📸');
-      });
-    });
-
-    document.getElementById('btn-step2-next')?.addEventListener('click', () => this.showView('machine-details'));
-
-    // 7. Step 3: Problem symptom chips & Voice Recording
-    document.querySelectorAll('#view-machine-details .angle-tag').forEach(chip => {
-      chip.addEventListener('click', () => {
-        chip.parentElement.querySelectorAll('.angle-tag').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
-        this.showToast(`Selected: ${chip.textContent}`);
-      });
-    });
-
-    // Voice record button toggle
-    const voiceBtn = document.getElementById('btn-user-voice-record');
-    if (voiceBtn) {
-      voiceBtn.addEventListener('click', () => {
-        this.isRecordingVoice = !this.isRecordingVoice;
-        if (this.isRecordingVoice) {
-          voiceBtn.classList.add('recording');
-          this.showToast('Listening in Hindi/English... Speak now', '🎙️');
-          document.getElementById('user-voice-transcript').textContent = 'Listening: "AC se cooling nahi ho rahi..."';
-          setTimeout(() => {
-            voiceBtn.classList.remove('recording');
-            this.isRecordingVoice = false;
-            document.getElementById('user-voice-transcript').textContent = '"Bhai AC on hai par thandi hawa nahi de raha aur outdoor unit se noise aa rahi hai."';
-            this.showToast('Voice recorded successfully!', '✓');
-          }, 2000);
-        }
-      });
-    }
-
-    document.getElementById('btn-step3-next')?.addEventListener('click', () => {
-      this.bookingState.equipmentName = document.getElementById('input-equip-name').value;
-      this.bookingState.brand = document.getElementById('input-equip-brand').value;
-      this.bookingState.model = document.getElementById('input-equip-model').value;
-      this.bookingState.age = document.getElementById('input-equip-age').value;
-      this.bookingState.issueDescription = document.getElementById('input-issue-text').value;
-      this.showView('service-location');
-    });
-
-    // 8. Step 4: Service Location Next
-    document.getElementById('btn-step4-next')?.addEventListener('click', () => {
-      this.bookingState.locationCity = document.getElementById('input-loc-city').value;
-      this.bookingState.locationBuilding = document.getElementById('input-loc-building').value;
-      this.bookingState.locationFloor = document.getElementById('input-loc-floor').value;
-      this.bookingState.locationNotes = document.getElementById('input-loc-notes').value;
-
-      // Populate Review Card
-      document.getElementById('review-cat-badge').textContent = this.bookingState.category;
-      document.getElementById('review-equip-title').textContent = `${this.bookingState.brand} ${this.bookingState.equipmentName} (${this.bookingState.age})`;
-      document.getElementById('review-issue-desc').textContent = this.bookingState.issueDescription;
-      document.getElementById('review-loc-text').textContent = `${this.bookingState.locationBuilding}, ${this.bookingState.locationCity}`;
-
-      this.showView('review-request');
-    });
-
-    // 9. Step 5: Trigger AI Diagnosis
-    document.getElementById('btn-trigger-ai-diagnosis')?.addEventListener('click', () => {
-      this.runAiDiagnosisFlow();
-    });
-
-    // Find Technicians button click
-    document.getElementById('btn-find-technicians')?.addEventListener('click', () => {
-      this.runTechnicianMatchingFlow();
-    });
-
-    // Tracking flow buttons
-    document.getElementById('btn-go-live-tracking')?.addEventListener('click', () => this.showView('live-tracking'));
-    document.getElementById('btn-open-contact-modal')?.addEventListener('click', () => this.showToast('Calling Rahul Kumar (+91 98765 43210)...', '📞'));
-    document.getElementById('btn-tracking-call')?.addEventListener('click', () => this.showToast('Calling Rahul Kumar (+91 98765 43210)...', '📞'));
-    document.getElementById('btn-top-contact')?.addEventListener('click', () => this.showToast('Calling Rahul Kumar (+91 98765 43210)...', '📞'));
-
-    // Simulation helper buttons
-    document.getElementById('sim-tech-arrived')?.addEventListener('click', () => {
-      this.showToast('Simulated: Technician arrived at doorstep!', '📍');
-      this.showView('tech-arrived');
-    });
-    document.getElementById('sim-tech-inspect')?.addEventListener('click', () => {
-      this.showToast('Simulated: Inspection complete! Quotation ready.', '📋');
-      this.showView('quote-approval');
-    });
-
-    // Arrival to Quote
-    document.getElementById('btn-view-final-quote')?.addEventListener('click', () => this.showView('quote-approval'));
-
-    // Approve Quote
-    document.getElementById('btn-approve-repair')?.addEventListener('click', () => {
-      this.showToast('Quote Approved! Repair in progress.', '🔨');
-      this.showView('repair-progress');
-    });
-    document.getElementById('btn-reject-repair')?.addEventListener('click', () => {
-      this.showToast('Quote rejected. Contacting support.', '⚠️');
-      this.showView('home');
-    });
-
-    // Repair progress to proof
-    document.getElementById('btn-view-digital-proof')?.addEventListener('click', () => this.showView('proof-review'));
-
-    // Proof to payment
-    document.getElementById('btn-proceed-to-pay')?.addEventListener('click', () => this.showView('payment'));
-
-    // Payment method selector
-    document.querySelectorAll('.payment-option').forEach(opt => {
-      opt.addEventListener('click', () => {
-        document.querySelectorAll('.payment-option').forEach(o => {
-          o.classList.remove('active');
-          o.querySelector('span[style*="font-weight: bold"]')?.remove();
-        });
-        opt.classList.add('active');
-        opt.insertAdjacentHTML('beforeend', '<span style="color: var(--primary-dark-green); font-weight: bold;">✓</span>');
-        this.selectedPaymentMethod = opt.getAttribute('data-method');
-        this.showToast(`Selected payment: ${this.selectedPaymentMethod}`, '💳');
-      });
-    });
-
-    // Submit Payment
-    document.getElementById('btn-submit-payment')?.addEventListener('click', () => this.processPayment());
-
-    // Star Rating
-    document.querySelectorAll('.star-item').forEach(star => {
-      star.addEventListener('click', () => {
-        const val = parseInt(star.getAttribute('data-val'));
-        this.selectedRating = val;
-        document.querySelectorAll('.star-item').forEach((s, idx) => {
-          s.style.color = (idx < val) ? '#D97706' : '#D1D5DB';
-        });
-        this.showToast(`Rated ${val} Stars! ⭐`);
-      });
-    });
-
-    // Submit Review
-    document.getElementById('btn-submit-review')?.addEventListener('click', () => {
-      this.showToast('Thank you! Review recorded.', '🌟');
-      this.showView('receipt');
-    });
-
-    // Download Receipt
-    document.getElementById('btn-download-receipt')?.addEventListener('click', () => {
-      this.showToast('Official PDF Receipt downloaded to device!', '📥');
-    });
-  }
-
-  updateOnboardingSlide(slideNum) {
-    document.querySelectorAll('.onboarding-slide').forEach((s, i) => {
-      s.classList.toggle('active', i === slideNum - 1);
-    });
-    document.querySelectorAll('.dot').forEach((d, i) => {
-      d.classList.toggle('active', i === slideNum - 1);
-    });
-  }
-
-  async runAiDiagnosisFlow() {
-    this.showView('ai-analyzing');
-    this.showToast('AI multi-modal models analyzing images...', '🧠');
-    
-    // Simulate AI Multi-modal scanner
-    setTimeout(async () => {
-      try {
-        const formData = new FormData();
-        formData.append('description', this.bookingState.issueDescription);
-        formData.append('location', this.bookingState.locationCity);
-        
-        const res = await ApiClient.post('/api/diagnose', formData);
-        if (res && res.diagnosis) {
-          const diag = res.diagnosis;
-          document.getElementById('diag-detected-title').textContent = `${diag.icon || '❄️'} ${diag.detected_issue}`;
-          document.getElementById('diag-confidence-pill').textContent = `${diag.confidence || 92}% AI Confidence`;
-          document.getElementById('diag-severity-pill').textContent = `${diag.severity || 'HIGH'} SEVERITY`;
-          
-          if (diag.possible_causes) {
-            document.getElementById('diag-causes-list').innerHTML = diag.possible_causes.map(c => `<li>${c}</li>`).join('');
-          }
-          if (diag.required_parts) {
-            document.getElementById('diag-parts-chips').innerHTML = diag.required_parts.map(p => `<span class="angle-tag active">${p}</span>`).join('');
-          }
-        }
-      } catch (err) {
-        console.warn('AI diagnose call fallback:', err);
-      }
-      this.showToast('AI Diagnosis Complete!', '✓');
-      this.showView('ai-result');
-    }, 1800);
-  }
-
-  async runTechnicianMatchingFlow() {
-    this.showView('tech-searching');
-    this.showToast('Scanning nearby technicians...', '📡');
-
-    // Create Job in backend
-    try {
-      const payload = {
-        user_id: this.userId,
-        category: this.bookingState.category,
-        title: "AC Cooling Failure",
-        description: this.bookingState.issueDescription,
-        address: `${this.bookingState.locationBuilding}, ${this.bookingState.locationCity}`,
-        final_amount: 1450.0
-      };
-
-      const res = await ApiClient.post('/api/jobs', payload);
-      if (res && res.job) {
-        this.activeJob = res.job;
-      }
-    } catch (e) {
-      console.warn('Create job API call:', e);
-    }
-
-    // Auto-match after radar scan
-    setTimeout(() => {
-      this.showToast('Rahul Kumar accepted your job!', '👨‍🔧');
-      this.showView('tech-found');
-      this.renderActiveJobWidget();
-    }, 2200);
-  }
-
-  async processPayment() {
-    const btn = document.getElementById('btn-submit-payment');
-    if (btn) btn.textContent = 'Processing Payment... 🔒';
-
-    setTimeout(async () => {
-      try {
-        if (this.activeJob) {
-          await ApiClient.post('/api/payments/process', {
-            job_id: this.activeJob.id,
-            payment_method: this.selectedPaymentMethod,
-            amount: 1450.0
-          });
-        }
-      } catch (err) {
-        console.warn('Payment API call:', err);
-      }
-      this.showToast('₹1,450.00 Paid Successfully via ' + this.selectedPaymentMethod, '🎉');
-      this.showView('rating');
-    }, 1200);
-  }
-
-  async loadActiveJob() {
-    try {
-      const res = await ApiClient.get('/api/jobs/active/user/1');
-      if (res && res.job) {
-        this.activeJob = res.job;
-        this.renderActiveJobWidget();
-      }
-    } catch (e) {
-      console.log('No active job found initially');
+    // Auto-advance logic for AI Analysis (Step 5) & Matching (Step 6)
+    if (stepId === 'analysis') {
+      clearTimeout(this.autoTimer);
+      this.autoTimer = setTimeout(() => {
+        this.navigateToStep('matching', 6);
+      }, 2500);
+    } else if (stepId === 'matching') {
+      clearTimeout(this.autoTimer);
+      this.autoTimer = setTimeout(() => {
+        this.navigateToStep('bestmatch', 7);
+      }, 2500);
     }
   }
 
-  renderActiveJobWidget() {
-    const container = document.getElementById('home-active-job-container');
-    if (!container) return;
-
-    if (!this.activeJob) {
-      container.innerHTML = '';
-      return;
+  toggleVoiceRecording() {
+    this.isRecordingVoice = !this.isRecordingVoice;
+    const micLabel = document.getElementById('mic-status-label');
+    if (micLabel) {
+      micLabel.textContent = this.isRecordingVoice ? '● Recording voice...' : 'Tap to record';
+      micLabel.style.color = this.isRecordingVoice ? '#EF4444' : '#6B7280';
     }
+  }
 
-    container.innerHTML = `
-      <div class="active-service-widget" style="border: 2px solid var(--primary-dark-green);">
-        <div class="active-service-header">
-          <span style="font-size: 11px; font-weight: 800; color: var(--primary-dark-green);">ACTIVE SERVICE (${this.activeJob.job_code || '#1022'})</span>
-          <span class="active-status-badge">
-            <span class="pulse-dot"></span> ${this.activeJob.status}
-          </span>
-        </div>
-        <div style="display: flex; align-items: center; justify-content: space-between;">
-          <div>
-            <h4 style="font-size: 14px; font-weight: 800; color: var(--primary-dark-green);">${this.activeJob.title || 'AC Repair'}</h4>
-            <span style="font-size: 11px; color: var(--text-secondary);">Technician: Rahul Kumar (2.4 km)</span>
+  renderPosterGrid() {
+    const posterContainer = document.getElementById('poster-grid-container');
+    if (!posterContainer) return;
+
+    const stepsData = [
+      { num: 1, id: 'login', title: '1. Login' },
+      { num: 2, id: 'home', title: '2. Home' },
+      { num: 3, id: 'upload', title: '3. Upload Issue (Photo First)' },
+      { num: 4, id: 'describe', title: '4. Describe Issue' },
+      { num: 5, id: 'analysis', title: '5. AI Analysis' },
+      { num: 6, id: 'matching', title: '6. Technician Matching' },
+      { num: 7, id: 'bestmatch', title: '7. Best Match Found' },
+      { num: 8, id: 'accepted', title: '8. Request Accepted' },
+      { num: 9, id: 'tracking', title: '9. Live Tracking' },
+      { num: 10, id: 'arrived', title: '10. Technician Arrived' },
+      { num: 11, id: 'quote', title: '11. Repair Quote' },
+      { num: 12, id: 'inprogress', title: '12. Repair In Progress' },
+      { num: 13, id: 'completed', title: '13. Completed' },
+      { num: 14, id: 'proof', title: '14. Before / After' },
+      { num: 15, id: 'payment', title: '15. Payment' },
+      { num: 16, id: 'success', title: '16. Payment Success' },
+      { num: 17, id: 'review', title: '17. Rate & Review' },
+      { num: 18, id: 'history', title: '18. Service History' }
+    ];
+
+    posterContainer.innerHTML = stepsData.map(step => {
+      const sourceView = document.getElementById(`view-${step.id}`);
+      const innerHtml = sourceView ? sourceView.innerHTML : `<div style="padding:20px;">Screen ${step.num}</div>`;
+      return `
+        <div class="poster-screen-card" onclick="userApp.switchViewMode('phone'); userApp.navigateToStep('${step.id}', ${step.num});">
+          <div class="poster-screen-badge">${step.title}</div>
+          <div style="margin-top: 40px; height: 100%; display: flex; flex-direction: column;">
+            ${innerHtml}
           </div>
-          <button class="btn-primary" style="width: auto; padding: 8px 14px; font-size: 11px;" onclick="userApp.showView('live-tracking')">Track Live 🗺️</button>
         </div>
-      </div>
-    `;
-  }
-
-  showReceiptModal(code, title, amount) {
-    document.getElementById('rec-job-code').textContent = code;
-    document.getElementById('rec-total-amount').textContent = `₹${amount.toLocaleString()}`;
-    this.showToast(`Viewing receipt for ${code}`, '📄');
-    this.showView('receipt');
-  }
-
-  logout() {
-    this.showToast('Logged out');
-    this.showView('auth');
+      `;
+    }).join('');
   }
 }
-
-window.UserApp = UserApp;
