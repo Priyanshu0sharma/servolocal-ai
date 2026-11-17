@@ -190,7 +190,7 @@ class _ServoLocal18StepUserAppState extends State<ServoLocal18StepUserApp> {
         children: [
           _buildNavItem(0, Icons.home_rounded, "Home", 2),
           _buildNavItem(1, Icons.assignment_rounded, "Requests", 18),
-          
+
           // Center Floating Plus Button for New Request (Step 3 Upload)
           InkWell(
             onTap: () => _goToStep(3),
